@@ -13,7 +13,6 @@
 		<form action="addsalestodb.php" method="post">
 			<fieldset>
 				<p>
-					<label for='ItemName'>Item</label>
 					<label for='ItemId'>Item ID</label>
 					<input id='ItemId' name='itemid' type='text' required='required' pattern="^[a-zA-Z]+$"/>
 				</p>
