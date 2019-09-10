@@ -14,6 +14,11 @@
 			<fieldset>
 				<p>
 					<label for='ItemName'>Item</label>
+					<label for='ItemId'>Item ID</label>
+					<input id='ItemId' name='itemid' type='text' required='required' pattern="^[a-zA-Z]+$"/>
+				</p>
+				<p>
+					<label for='ItemName'>Item name</label>
 					<input id='ItemName' name='itemname' type='text' required='required' pattern="^[a-zA-Z]+$"/>
 				</p>
 				<p>
