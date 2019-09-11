@@ -18,15 +18,15 @@
 				</p>
 				<p>
 					<label for='ItemName'>Item name</label>
-					<input id='ItemName' name='itemname' type='text' required='required' pattern="^[a-zA-Z]+$"/>
+					<input id='ItemName' name='itemname' type='text' required='required' pattern="^[a-zA-Z ]+$"/>
 				</p>
 				<p>
 					<label for='Price'>Price</label>
-					<input id='Price' name='price' type='text' required='required' pattern="\d"/>
+					<input id='Price' name='price' type='text' required='required' pattern="\d+$"/>
 				</p>
 				<p>
 					<label for='Quantity'>Quantity</label>
-					<input id='Quantity' name='quantity' type='text' required='required' pattern="\d"/>
+					<input id='Quantity' name='quantity' type='text' required='required' pattern="\d+$"/>
 				</p>
 				<p>
 					<label for='Date'>Date Sold</label>
