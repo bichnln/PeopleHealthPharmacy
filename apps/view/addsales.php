@@ -4,12 +4,13 @@
 		<meta charset='utf-8'/>
 		<meta name='author' content='DP2'/>
 		<title>PHP - Add Sales Records</title>
+		<script src="../../public/js/addsales.js"></script>
 	</head>
 	<body>
 		<?php 
 		include_once "header.inc";
 		?>
-		<!-- add php to process this form later -->
+		<!-- add php to process this form to db later -->
 		<form action="addsalestodb.php" method="post">
 			<fieldset>
 				<p>
