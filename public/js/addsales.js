@@ -25,7 +25,7 @@ function init() {
     var qtyPattern = /^[0-9]+$/;
 
     itemID.oninput = function() {
-        onInputValidate(itemID, idPattern, "ID must not be empty and contains only numbers with 11 digits as max");
+        onInputValidate(itemID, idPattern, "ID must not be empty and contains only numbers with 10 digits as max");
     }
     itemName.oninput = function() {
         onInputValidate(itemName, namePattern,  "Item Name must not be empty and contains only letters and spaces");
