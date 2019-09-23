@@ -15,11 +15,11 @@
 			<fieldset>
 				<p>
 					<label for='itemID'>Item ID</label>
-					<input id='itemID' name='itemID' type='text' required='required' pattern="^[a-zA-Z]+$"/>
+					<input id='itemID' name='itemID' type='text' required='required' pattern="^[0-9]{1,10}$"/>
 				</p>
 				<p>
 					<label for='itemName'>Item name</label>
-					<input id='itemName' name='itemName' type='text' required='required' pattern="^[a-zA-Z ]+$"/>
+					<input id='itemName' name='itemName' type='text' required='required' pattern="^[a-zA-Z ]{1,40}$"/>
 				</p>
 				<p>
 					<label for='itemPrice'>Price</label>
