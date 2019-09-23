@@ -19,8 +19,8 @@ function init() {
     var statetxt = document.getElementById("statetxt"); 
     var addSalesForm = document.getElementById("addSalesForm"); 
     
-    var idPattern = /^([0-9]){1,11}$/;
-    var namePattern = /^[A-Za-z ]+$/;
+    var idPattern = /^([0-9]){1,10}$/;
+    var namePattern = /^[A-Za-z ]{1,40}$/;
     var pricePattern = /^([0-9])+(\.[0-9]{1,2})?$/;
     var qtyPattern = /^[0-9]+$/;
 
