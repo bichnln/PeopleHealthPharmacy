@@ -4,11 +4,7 @@
 		<meta charset='utf-8'/>
 		<meta name='author' content='DP2'/>
 		<title>PHP - Add Sales Records</title>
-<<<<<<< HEAD
-		<script src="../../public/js/addsales1.js"></script>
-=======
 		<script src="../../public/js/addsales.js"></script>
->>>>>>> master
 	</head>
 	<body>
 		<?php 
