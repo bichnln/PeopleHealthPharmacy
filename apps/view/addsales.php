@@ -4,7 +4,11 @@
 		<meta charset='utf-8'/>
 		<meta name='author' content='DP2'/>
 		<title>PHP - Add Sales Records</title>
+<<<<<<< HEAD
 		<script src="../../public/js/addsales1.js"></script>
+=======
+		<script src="../../public/js/addsales.js"></script>
+>>>>>>> master
 	</head>
 	<body>
 		<?php 
@@ -14,24 +18,24 @@
 		<form action="addsalestodb.php" method="post">
 			<fieldset>
 				<p>
-					<label for='ItemId'>Item ID</label>
-					<input id='ItemId' name='itemid' type='text' required='required' pattern="^[a-zA-Z]+$"/>
+					<label for='itemID'>Item ID</label>
+					<input id='itemID' name='itemID' type='text' required='required' pattern="^[a-zA-Z]+$"/>
 				</p>
 				<p>
-					<label for='ItemName'>Item name</label>
-					<input id='ItemName' name='itemname' type='text' required='required' pattern="^[a-zA-Z ]+$"/>
+					<label for='itemName'>Item name</label>
+					<input id='itemName' name='itemName' type='text' required='required' pattern="^[a-zA-Z ]+$"/>
 				</p>
 				<p>
-					<label for='Price'>Price</label>
-					<input id='Price' name='price' type='text' required='required' pattern="^([0-9])+(\.[0-9]{0,2})?$"/>
+					<label for='itemPrice'>Price</label>
+					<input id='itemPrice' name='itemPrice' type='text' required='required' pattern="\d+$"/>
 				</p>
 				<p>
-					<label for='Quantity'>Quantity</label>
-					<input id='Quantity' name='quantity' type='text' required='required' pattern="\d+$"/>
+					<label for='qty'>Quantity</label>
+					<input id='qty' name='qty' type='text' required='required' pattern="\d+$"/>
 				</p>
 				<p>
-					<label for='Date'>Date Sold</label>
-					<input id='Date' name='date' type='date' required='required'/>
+					<label for='salesDate'>Date Sold</label>
+					<input id='salesDate' name='salesDate' type='date' required='required'/>
 				</p>
 				<p>
 				<span class="errortxt" id="statetxt"></span>
