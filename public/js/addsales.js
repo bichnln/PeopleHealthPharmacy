@@ -11,11 +11,11 @@ function onInputValidate(item, pattern, errorText) {
     }
 }
 function init() {
-    var itemID = document.getElementById('ItemId');
-    var itemName = document.getElementById('ItemName');
-    var price = document.getElementById('Price');
-    var qty = document.getElementById('Quantity');
-    var date = document.getElementById("Date");
+    var itemID = document.getElementById('itemID');
+    var itemName = document.getElementById('itemName');
+    var price = document.getElementById('itemPrice');
+    var qty = document.getElementById('qty');
+    var date = document.getElementById("salesDate");
     var statetxt = document.getElementById("statetxt"); 
     var addSalesForm = document.getElementById("addSalesForm"); 
     
