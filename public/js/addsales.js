@@ -1,6 +1,6 @@
-function onInputValidate(value, pattern, errorText) {
+function onInputValidate(item, pattern, errorText) {
     var statetxt = document.getElementById("statetxt"); 
-    if (!value.match(pattern)) {
+    if (!item.value.match(pattern)) {
         statetxt.style.display = "block";
         statetxt.style.color = "red";
         statetxt.innerHTML = errorText;
@@ -21,28 +21,23 @@ function init() {
     
     var idPattern = /^([0-9]){1,11}$/;
     var namePattern = /^[A-Za-z ]+$/;
-    var pricePattern = /^([0-9])+(\.[0-9]{0,2})?$/;
+    var pricePattern = /^([0-9])+(\.[0-9]{1,2})?$/;
     var qtyPattern = /^[0-9]+$/;
 
-    itemID.oninput = onInputValidate(itemID.value, idPattern, "ID must not be empty and contains only numbers with 11 digits as max");
-
-    itemName.oninput = onInputValidate(itemName.value, namePattern,  "Item Name must not be empty and contains only letters and spaces");
-    
-    price.oninput = onInputValidate(price.value, pricePattern, "Price must not be empty and accepts only decimal numbers");
-
-    qty.oninput = onInputValidate(qty.value, qtyPattern, "Quantity must not be empty and accepts only positive integers");
-    qty.onkeypress = function() {
-        if (!qty.value.match(qtyPattern
-    )) {
-            statetxt.innerHTML = "Quantity can only has numerical value!";
-            statetxt.style.color = "red";
-            statetxt.style.display = "block";
-        } else {
-            statetxt.innerHTML = "";
-        }
+    itemID.oninput = function() {
+        onInputValidate(itemID, idPattern, "ID must not be empty and contains only numbers with 11 digits as max");
     }
-    date.onfocus = function() {
-        if (!date.value == "dd/mm/yy") {
+    itemName.oninput = function() {
+        onInputValidate(itemName, namePattern,  "Item Name must not be empty and contains only letters and spaces");
+    }
+    price.oninput = function () {
+        onInputValidate(price, pricePattern, "Price must not be empty and accepts only decimal numbers");
+    }
+    qty.oninput = function() {
+        onInputValidate(qty, qtyPattern, "Quantity must not be empty and accepts only positive integers");
+    } 
+    date.onblur = function() {
+        if (!date.value) {
             statetxt.innerHTML = "You must specify a date!";
             statetxt.style.color = "red";
             statetxt.style.display = "block";
