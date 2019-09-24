@@ -11,7 +11,7 @@
 		include_once "header.inc";
 		?>
 		<!-- add php to process this form to db later -->
-		<form action="addsalestodb.php" method="post">
+		<form action="../controller/addsales.php" method="post">
 			<fieldset>
 				<p>
 					<label for='itemID'>Item ID</label>
