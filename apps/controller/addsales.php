@@ -68,6 +68,12 @@ if($qty == "") {
 }
 if(!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$salesDate)){
 	$errMsg .= "The sales date must match the format (dd/mm/yyyy)<br/>";
+} else {
+	$year = explode("-", $salesDate)[0];
+
+	if ($year > date("Y")) {
+		$errMsg .= "The sales year must less than or equal to the current year<br/>";
+	}
 }
 
 if($errMsg != ""){
@@ -77,11 +83,11 @@ if($errMsg != ""){
 	// Create a hidden form
 	echo 
 		"<form id='modelForm' action='../model/salesdb.php' method='POST'>".
-			"<input id='itemID' name='itemID' type='hidden' value=". $itemID .">".
-			"<input id='itemName' name='itemName' type='hidden' value=". $itemName .">".
-			"<input id='itemPrice' name='itemPrice' type='hidden' value=". $itemPrice .">".
-			"<input id='qty' name='qty' type='hidden' value=". $qty .">".
-			"<input id='salesDate' name='salesDate' type='hidden' value=". $salesDate .">".
+			"<input id='itemID' name='itemID' type='hidden' value='". $itemID ."'/>".
+			"<input id='itemName' name='itemName' type='hidden' value='". $itemName ."'/>".
+			"<input id='itemPrice' name='itemPrice' type='hidden' value='". $itemPrice ."'/>".
+			"<input id='qty' name='qty' type='hidden' value='". $qty ."'/>".
+			"<input id='salesDate' name='salesDate' type='hidden' value='". $salesDate ."'/>".
 			"<button id='subBtn' type='submit' name='subBtn'>Add</button>".
 		"</form>".
 		"<script type='text/javascript'>
