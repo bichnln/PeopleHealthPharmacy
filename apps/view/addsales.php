@@ -18,20 +18,12 @@
 					<input id='itemID' name='itemID' type='text' required='required' pattern="^[0-9]{1,10}$"/>
 				</p>
 				<p>
-					<label for='itemName'>Item name</label>
-					<input id='itemName' name='itemName' type='text' required='required' pattern="^[a-zA-Z ]{1,40}$"/>
-				</p>
-				<p>
-					<label for='itemPrice'>Price</label>
-					<input id='itemPrice' name='itemPrice' type='text' required='required' pattern="^([0-9])+(\.[0-9]{1,2})?$"/>
-				</p>
-				<p>
 					<label for='qty'>Quantity</label>
 					<input id='qty' name='qty' type='text' required='required' pattern="^[0-9]+$"/>
 				</p>
 				<p>
 					<label for='salesDate'>Date Sold</label>
-					<input id='salesDate' name='salesDate' type='date' required='required'/>
+					<input id='salesDate' name='salesDate' type='datetime-local' required='required'/>
 				</p>
 				<p>
 				<span class="errortxt" id="statetxt"></span>
