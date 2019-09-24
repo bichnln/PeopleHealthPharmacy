@@ -17,11 +17,11 @@
 						<input type="text" name="itemID" id="itemID" maxlength="10" size="10" required="required" pattern="^([0-9]){1,10}$"/>
 					</p>
 					<p>
-						<label for="itemName">Product Name</label>
+						<label for="itemName">Item Name</label>
 						<input type="text" name="itemName" id="itemName" maxlength="40" size="40" required="required" pattern="^[A-Za-z ]{1,40}$"/>
 					</p>
 					<p>
-						<label for="itemPrice">Product Price</label>
+						<label for="itemPrice">Item Price</label>
 						<input type="text" name="itemPrice" id="itemPrice" maxlength="8" size="8" required="required" pattern="^([0-9])+(\.[0-9]{1,2})?$"/>
 					</p>
 					<p>
