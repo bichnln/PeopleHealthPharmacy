@@ -1,5 +1,5 @@
 function onInputValidate(item, pattern, errorText) {
-    var statetxt = document.getElementById("statetxt"); 
+    var statetxt = document.getElementById("statetext"); 
     if (!item.value.match(pattern)) {
         statetxt.style.display = "block";
         statetxt.style.color = "red";
@@ -14,10 +14,9 @@ function init() {
     var itemID = document.getElementById('itemID');
     var itemName = document.getElementById('itemName');
     var price = document.getElementById('itemPrice');
-    var qty = document.getElementById('qty');
-    var date = document.getElementById("salesDate");
-    var statetxt = document.getElementById("statetxt"); 
-    var addSalesForm = document.getElementById("addSalesForm"); 
+    var qty = document.getElementById('itemStock');
+    var statetxt = document.getElementById("statetext"); 
+    var addInventoryForm = document.getElementById("addInventoryForm"); 
     
     var idPattern = /^([0-9]){1,10}$/;
     var namePattern = /^[A-Za-z ]{1,40}$/;
@@ -36,14 +35,5 @@ function init() {
     qty.oninput = function() {
         onInputValidate(qty, qtyPattern, "Quantity must not be empty and accepts only positive integers");
     } 
-    date.onblur = function() {
-        if (!date.value) {
-            statetxt.innerHTML = "You must specify a date!";
-            statetxt.style.color = "red";
-            statetxt.style.display = "block";
-        } else {
-            statetxt.innerHTML = "";
-        }       
-    }
 }
 window.onload = init;
