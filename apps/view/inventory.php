@@ -9,7 +9,7 @@
 	<body>
 	<?php include_once 'header.inc';?>
 		<h1>Add an Inventory Record</h1>
-		<form method="post">
+		<form action="../controller/addinventory.php" method="post">
 			<fieldset>
 				<legend>Inventory Record</legend>
 					<p>
