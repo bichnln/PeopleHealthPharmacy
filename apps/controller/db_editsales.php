@@ -21,6 +21,6 @@ if(isset($_POST["submit"]))
 		$command = "UPDATE Sales_Record SET qty = '$quantity', salesDate = '$date' WHERE itemID = '$id'";
 		$sql = mysqli_query($conn, $command);
 	}
-	exit;
+	header("location:../view/editsales.php");
 }
 ?>

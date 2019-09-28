@@ -14,9 +14,8 @@
 
 		<!-- add php to process this form to db later -->
 		<?php
-		$query = "SELECT Sales_Record.itemID, Sales_Record.salesDate, Sales_Record.qty 
-				FROM Sales_Record 
-				INNER JOIN Inventory_Record on Sales_Record.itemID = Inventory_Record.ItemId";
+		$query = "SELECT itemID, salesDate, qty 
+				FROM Sales_Record";
 		$result = mysqli_query($conn, $query);
 
 		if(!$result)
