@@ -6,19 +6,19 @@ if (isset($_POST["itemID"])) {
 	$itemID = $_POST["itemID"];
 } else {
 	// Error 0 - information hasn't been passed
-	header("location: ../view/addsales.php?err=s0");
+	header("location: ../controller/addsales.php?err=s0");
 }
 if (isset($_POST["qty"])) {
 	$qty = $_POST["qty"];
 } else {
 	// Error 0 - information hasn't been passed
-	header("location: ../view/addsales.php?err=s0");
+	header("location: ../controller/addsales.php?err=s0");
 }
 if (isset($_POST["salesDate"])) {
 	$salesDate = $_POST["salesDate"];
 } else {
 	// Error 0 - information hasn't been passed
-	header("location: ../view/addsales.php?err=s0");
+	header("location: ../controller/addsales.php?err=s0");
 }
 
 require_once("../db_connection.php");
@@ -54,26 +54,26 @@ if ($result) {
 
 				// Check the insertion query
 				if ($result) {
-					header("location: ../view/addsales.php?suc=s1");
+					header("location: ../controller/addsales.php?suc=s1");
 				} else {
 					// Error 4 - Cannot insert into sales table
-					header("location: ../view/addsales.php?err=s4");
+					header("location: ../controller/addsales.php?err=s4");
 				}
 			} else {
 				// Error 3 - Cannot update inventory table
-				header("location: ../view/addsales.php?err=s3");
+				header("location: ../controller/addsales.php?err=s3");
 			}
 		} else {
 			// Message 1 - Not much item in stock
-			header("location: ../view/addsales.php?msg=s1");
+			header("location: ../controller/addsales.php?msg=s1");
 		}
 	} else {
 		// Error 2 - There is no item with the given ID
-		header("location: ../view/addsales.php?err=s2");
+		header("location: ../controller/addsales.php?err=s2");
 	}
 } else {
 	// Error 1 - Can not create a sales table
-	header("location: ../view/addsales.php?err=s1");
+	header("location: ../controller/addsales.php?err=s1");
 }
 
 ?>

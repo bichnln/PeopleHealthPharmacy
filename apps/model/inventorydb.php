@@ -5,25 +5,25 @@ if (isset($_POST["itemID"])) {
 	$itemID = $_POST["itemID"];
 } else {
 	// Error 0 - information hasn't been passed
-	header("location: ../view/inventory.php?err=i0");
+	header("location: ../controller/addinventory.php?err=i0");
 }
 if (isset($_POST["itemName"])) {
 	$itemName = $_POST["itemName"];
 } else {
 	// Error 0 - information hasn't been passed
-	header("location: ../view/inventory.php?err=i0");
+	header("location: ../controller/addinventory.php?err=i0");
 }
 if (isset($_POST["itemPrice"])) {
 	$itemPrice = $_POST["itemPrice"];
 } else {
 	// Error 0 - information hasn't been passed
-	header("location: ../view/inventory.php?err=i0");
+	header("location: ../controller/addinventory.php?err=i0");
 }
 if (isset($_POST["itemStock"])) {
 	$itemStock = $_POST["itemStock"];
 } else {
 	// Error 0 - information hasn't been passed
-	header("location: ../view/inventory.php?err=i0");
+	header("location: ../controller/addinventory.php?err=i0");
 }
 
 require_once("../db_connection.php");
@@ -59,10 +59,10 @@ if ($result) {
 
 			if($result) {
 				// Success 1 - Update item successfully
-				header("location: ../view/inventory.php?suc=i1");
+				header("location: ../controller/addinventory.php?suc=i1");
 			} else {
 				// Error 3 - Can not update inventory
-				header("location: ../view/inventory.php?err=i3");
+				header("location: ../controller/addinventory.php?err=i3");
 			}
 		} else {
 			// IF an item doesn't exist
@@ -75,7 +75,7 @@ if ($result) {
 				
 				if ($item) {
 					// IF item exists -> Error 5 - item ID is not a unique key.
-					header("location: ../view/inventory.php?err=i5");
+					header("location: ../controller/addinventory.php?err=i5");
 				} else {
 					// IF item doesn't exist
 					$insertQuery = "INSERT INTO Inventory_Record(itemID, itemName, itemPrice, itemStock) VALUES ($itemID, '$itemName', $itemPrice, $itemStock);";
@@ -83,24 +83,24 @@ if ($result) {
 					$result = mysqli_query($conn, $insertQuery);
 					if ($result) {
 						// Success 2 - Insert item successfully
-						header("location: ../view/inventory.php?suc=i2");
+						header("location: ../controller/addinventory.php?suc=i2");
 					} else {
 						// Error 6 - Can not insert item
-						header("location: ../view/inventory.php?err=i6");
+						header("location: ../controller/addinventory.php?err=i6");
 					}
 				}
 			} else {
 				// Error 4 - Can not check item ID
-				header("location: ../view/inventory.php?err=i4");
+				header("location: ../controller/addinventory.php?err=i4");
 			}
 		}
 	} else {
 		// Error 2 - Can not check duplicate
-		header("location: ../view/inventory.php?err=i2");
+		header("location: ../controller/addinventory.php?err=i2");
 	}
 } else {
 	// Error 1 - Can not create a inventory table
-	header("location: ../view/inventory.php?err=i1");
+	header("location: ../controller/addinventory.php?err=i1");
 }
 
 ?>
