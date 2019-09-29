@@ -53,12 +53,12 @@ if($itemName == "") {
 if($itemPrice == "") {
 	$errMsg .= "You must enter the item's price<br/>";
 } else if (!preg_match("/^([0-9])+(\.[0-9]{1,2})?$/", $itemPrice)) {
-	$errMsg .= "The item ID must contain only decimal numbers<br/>";
+	$errMsg .= "The item price must contain only decimal numbers<br/>";
 }
 if($itemStock == "") {
 	$errMsg .= "You must enter the item's quantity<br/>";
 } else if (!preg_match("/^([0-9]){1,10}$/", $itemStock)) {
-	$errMsg .= "The item ID must contain only positive numbers<br/>";
+	$errMsg .= "The item quanity must contain only positive numbers<br/>";
 }
 
 
