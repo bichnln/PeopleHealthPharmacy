@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    require_once("../db_connection.php");   
+
     $sqlResult = $_SESSION["sqlResult"];
 
     $name = date('Y-m-d'); // name the exported file using date 
@@ -14,6 +14,7 @@
     
     fseek($handle, 0);
     
+    
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="' . $filename . '";');
     header("Pragma: no-cache");
@@ -21,13 +22,15 @@
     
     fpassthru($handle);
     fclose($handle);
+    
     ignore_user_abort(true);
     unlink($filename);  // delete file in server after download
-    
+    unset($_SESSION['sqlResult']);
    
     
-
+   
 ?>
+
 
 
 

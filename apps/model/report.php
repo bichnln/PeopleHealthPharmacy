@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="author" content="Le Ngoc Bich Nguyen"/>
-    <meta name="description" content="DP2 Project"/>
-</head>
-
-<body>
-    
-    <?php 
-   
+<?php 
     function getSQLResult($from, $to) {
         include("../db_connection.php");
 
@@ -82,9 +71,5 @@
                 }
             }
             return $fetchedArray;
-            
-    }
-    ?>
-</body>
-
-</html>
+}
+?>
