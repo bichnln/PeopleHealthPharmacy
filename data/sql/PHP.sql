@@ -42,7 +42,7 @@ CREATE TABLE `Employee` (
 --
 
 CREATE TABLE `Inventory_Record` (
-  `itemID` int(10) NOT NULL,
+  `itemID` int(10) NOT NULL AUTO_INCREMENT,
   `itemName` varchar(40) DEFAULT NULL,
   `itemPrice` decimal(5,2) DEFAULT NULL,
   `itemStock` int(10) DEFAULT NULL
@@ -56,7 +56,7 @@ CREATE TABLE `Inventory_Record` (
 
 CREATE TABLE `Sales_Record` (
   `eID` varchar(30) NOT NULL,
-  `itemID` int(10) NOT NULL,
+  `itemID` int(10) NOT NULL AUTO_INCREMENT,
   `salesDate` datetime NOT NULL,
   `qty` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

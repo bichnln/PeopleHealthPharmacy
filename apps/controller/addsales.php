@@ -12,8 +12,8 @@ function sanitise_input($data){
 }
 
 // Check if process was triggered by a form submit
-if(isset($_POST["itemID"])) {
-	$itemID = sanitise_input($_POST["itemID"]);
+if(isset($_POST["itemName"])) {
+	$itemName = sanitise_input($_POST["itemName"]);
 } else {
 	// Redirect to form, if the process not triggered by a form submit
 	header("location: ../view/addsales.php");
@@ -40,10 +40,10 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
 }
 $errMsg = "";
 
-if($itemID == "") {
-	$errMsg .= "You must enter the item ID<br/>";
-} else if (!preg_match("/^([0-9]){1,10}$/", $itemID)) {
-	$errMsg .= "The item ID must contain only number from 0 to 9 with the maximum length of 10<br/>";
+if($itemName == "") {
+	$errMsg .= "You must enter the item's name<br/>";
+} else if (!preg_match("/^[A-Za-z ]{1,40}$/", $itemName)) {
+	$errMsg .= "The item name must contain uppercase or lowercase letters and spaces<br/>";
 }
 if($qty == "") {
 	$errMsg .= "You must enter the quantity";
@@ -67,7 +67,7 @@ if($errMsg != ""){
 	// Create a hidden form
 	echo 
 		"<form id='modelForm' action='../model/salesdb.php' method='POST'>".
-			"<input id='itemID' name='itemID' type='hidden' value='". $itemID ."'/>".
+			"<input id='itemName' name='itemName' type='hidden' value='". $itemName ."'/>".
 			"<input id='qty' name='qty' type='hidden' value='". $qty ."'/>".
 			"<input id='salesDate' name='salesDate' type='hidden' value='". $salesDate ."'/>".
 			"<button id='subBtn' type='submit' name='subBtn'>Add</button>".
@@ -79,4 +79,5 @@ if($errMsg != ""){
 		</script>";
 }
 ?>
+
 
