@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 12, 2019 at 03:32 PM
+-- Generation Time: Oct 08, 2019 at 02:36 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -30,9 +30,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `Employee` (
   `eID` varchar(30) NOT NULL,
-  `eName` varchar(40) DEFAULT NULL,
-  `eRole` varchar(30) DEFAULT NULL,
-  `ePassWord` varchar(40) DEFAULT NULL
+  `eName` varchar(40) NOT NULL,
+  `eRole` varchar(30) NOT NULL,
+  `ePassword` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -42,9 +42,9 @@ CREATE TABLE `Employee` (
 --
 
 CREATE TABLE `Inventory_Record` (
-  `itemID` int(10) NOT NULL AUTO_INCREMENT,
-  `itemName` varchar(40) DEFAULT NULL,
-  `itemPrice` decimal(5,2) DEFAULT NULL,
+  `itemID` int(10) NOT NULL,
+  `itemName` varchar(40) NOT NULL,
+  `itemPrice` decimal(5,2) NOT NULL,
   `itemStock` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -56,8 +56,8 @@ CREATE TABLE `Inventory_Record` (
 
 CREATE TABLE `Sales_Record` (
   `eID` varchar(30) NOT NULL,
-  `itemID` int(10) NOT NULL AUTO_INCREMENT,
-  `salesDate` datetime NOT NULL,
+  `itemID` int(10) NOT NULL,
+  `salesDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `qty` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -69,9 +69,9 @@ CREATE TABLE `Sales_Record` (
 
 CREATE TABLE `Supplier` (
   `supID` varchar(30) NOT NULL,
-  `supName` varchar(40) DEFAULT NULL,
-  `phoneNo` varchar(15) DEFAULT NULL,
-  `address` varchar(40) DEFAULT NULL
+  `supName` varchar(40) NOT NULL,
+  `phoneNo` varchar(15) NOT NULL,
+  `address` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -83,7 +83,7 @@ CREATE TABLE `Supplier` (
 CREATE TABLE `Supplier_Inventory` (
   `itemID` int(10) NOT NULL,
   `supID` varchar(30) NOT NULL,
-  `supDate` date NOT NULL
+  `supDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -94,34 +94,72 @@ CREATE TABLE `Supplier_Inventory` (
 -- Indexes for table `Employee`
 --
 ALTER TABLE `Employee`
-  ADD PRIMARY KEY (`eID`),
-  ADD UNIQUE KEY `eID` (`eID`);
+  ADD PRIMARY KEY (`eID`);
 
 --
 -- Indexes for table `Inventory_Record`
 --
 ALTER TABLE `Inventory_Record`
-  ADD PRIMARY KEY (`itemID`),
-  ADD UNIQUE KEY `itemID` (`itemID`);
+  ADD PRIMARY KEY (`itemID`);
 
 --
 -- Indexes for table `Sales_Record`
 --
 ALTER TABLE `Sales_Record`
-  ADD PRIMARY KEY (`eID`,`itemID`,`salesDate`);
+  ADD PRIMARY KEY (`eID`,`itemID`,`salesDate`),
+  ADD KEY `itemID` (`itemID`);
 
 --
 -- Indexes for table `Supplier`
 --
 ALTER TABLE `Supplier`
-  ADD PRIMARY KEY (`supID`),
-  ADD UNIQUE KEY `supID` (`supID`);
+  ADD PRIMARY KEY (`supID`);
 
 --
 -- Indexes for table `Supplier_Inventory`
 --
 ALTER TABLE `Supplier_Inventory`
-  ADD PRIMARY KEY (`itemID`,`supID`,`supDate`);
+  ADD PRIMARY KEY (`itemID`,`supID`,`supDate`),
+  ADD KEY `supID` (`supID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Inventory_Record`
+--
+ALTER TABLE `Inventory_Record`
+  MODIFY `itemID` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Sales_Record`
+--
+ALTER TABLE `Sales_Record`
+  MODIFY `itemID` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Supplier_Inventory`
+--
+ALTER TABLE `Supplier_Inventory`
+  MODIFY `itemID` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Sales_Record`
+--
+ALTER TABLE `Sales_Record`
+  ADD CONSTRAINT `sales_record_ibfk_1` FOREIGN KEY (`itemID`) REFERENCES `Inventory_Record` (`itemID`);
+
+--
+-- Constraints for table `Supplier_Inventory`
+--
+ALTER TABLE `Supplier_Inventory`
+  ADD CONSTRAINT `supplier_inventory_ibfk_1` FOREIGN KEY (`itemID`) REFERENCES `Inventory_Record` (`itemID`),
+  ADD CONSTRAINT `supplier_inventory_ibfk_2` FOREIGN KEY (`supID`) REFERENCES `Supplier` (`supID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
