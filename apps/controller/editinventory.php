@@ -15,8 +15,6 @@ if (isset($_GET["search"])) {
 				$msg = $_GET['com'];
 				header ("location: ../view/editinventory.php?com=$msg");
 				exit();
-			} else {
-
 			}
 		} else {
 			$_SESSION['data'] = "Cannot reach to the server!";
@@ -41,7 +39,7 @@ if (isset($_GET["search"])) {
 		$itemName = sanitise_input($_POST["itemName"]);
 	} else {
 		// Redirect to form, if the process not triggered by a form submit
-		header("location: ../view/addsales.php");
+		header("location: ../view/editinventory.php");
 	}
 	if(isset($_POST["itemPrice"])) {
 		$itemPrice = sanitise_input($_POST["itemPrice"]);
@@ -89,20 +87,16 @@ if (isset($_GET["search"])) {
 		if ($itemPrice != -1) {
 			$result = update_price($conn, $itemName, $itemPrice);
 			if ($result) {
-				// $msg .= "Successfully updated item price!<br/>";
 				$msg .= "0";
 			} else {
-				// $msg .= "Failed to udpate item price!<br/>";
 				$msg .= "1";
 			}
 		} 
 		if ($itemStock != "") {
 			$result = update_qty($conn, $itemName, $itemStock, $updateOption);
 			if ($result) {
-				// $msg .= "Successfully updated item stock!<br/>";
 				$msg .= "2";
 			} else {
-				// $msg .= "Failed to udpate item stock!<br/>";
 				$msg .= "3";
 			}
 		}
