@@ -1,5 +1,5 @@
 <?php 
-    function getSQLResult($from, $to) {
+    function getSQLResult($from, $to, $group_by) {
         include("../db_connection.php");
 
         $sql="";
@@ -7,19 +7,34 @@
         array_pop($fetchedArray);
         // generate report of all sales if both from and to date are not specified
         if (($to === "" ) && ($to === "")) {
-            $sql = "SELECT Sales_Record.itemID,
-                             Inventory_Record.itemName,
-                             Inventory_Record.itemPrice,
-                             SUM(Sales_Record.qty) as TotalQuantity,
-                             (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
-                             EXTRACT(MONTH FROM Sales_Record.salesDate) as Month
-                      FROM Sales_Record 
-                      INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
-                      GROUP BY itemID, Month
-                      ORDER BY TotalQuantity DESC;";
+            if ($group_by === "Month") { // if grouped by Month
+                $sql = "SELECT Sales_Record.itemID,
+                                Inventory_Record.itemName,
+                                Inventory_Record.itemPrice,
+                                SUM(Sales_Record.qty) as TotalQuantity,
+                                (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
+                                EXTRACT(Month FROM Sales_Record.salesDate) as Month
+                        FROM Sales_Record 
+                        INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
+                        GROUP BY itemID, Month
+                        ORDER BY TotalQuantity DESC;";
+            } else {    // group by week
+                $sql = "SELECT Sales_Record.itemID,
+                                Inventory_Record.itemName,
+                                Inventory_Record.itemPrice,
+                                SUM(Sales_Record.qty) as TotalQuantity,
+                                (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
+                                EXTRACT(WEEK FROM Sales_Record.salesDate) as Week
+                        FROM Sales_Record 
+                        INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
+                        GROUP BY itemID, Week
+                        ORDER BY TotalQuantity DESC;";
+            }
+           
         } else { // if either $to or $from is specified
             if (($from !== "" ) && ($to === "")) {  // if only $from is specified
-                $sql = "SELECT Sales_Record.itemID,
+                if ($group_by === "Month") {
+                    $sql = "SELECT Sales_Record.itemID,
                              Inventory_Record.itemName,
                              Inventory_Record.itemPrice,
                              SUM(Sales_Record.qty) as TotalQuantity,
@@ -30,20 +45,50 @@
                       WHERE CAST(Sales_Record.salesDate AS DATE) >= '" . $from ."'                      
                       GROUP BY itemID, Month
                       ORDER BY TotalQuantity DESC;";
-            } else if (($from === "") &&($to !== "")) { // if only $to is specified
-                $sql = "SELECT Sales_Record.itemID,
+                } else {
+                    $sql = "SELECT Sales_Record.itemID,
                              Inventory_Record.itemName,
                              Inventory_Record.itemPrice,
                              SUM(Sales_Record.qty) as TotalQuantity,
                              (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
-                             EXTRACT(MONTH FROM Sales_Record.salesDate) as Month
+                             EXTRACT(WEEK FROM Sales_Record.salesDate) as Week
+                      FROM Sales_Record 
+                      INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
+                      WHERE CAST(Sales_Record.salesDate AS DATE) >= '" . $from ."'                      
+                      GROUP BY itemID, Week
+                      ORDER BY TotalQuantity DESC;";
+                }
+                
+            } else if (($from === "") &&($to !== "")) { // if only $to is specified
+                if ($group_by === "Month") {
+                    $sql = "SELECT Sales_Record.itemID,
+                                Inventory_Record.itemName,
+                                Inventory_Record.itemPrice,
+                                SUM(Sales_Record.qty) as TotalQuantity,
+                                (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
+                                EXTRACT(MONTH FROM Sales_Record.salesDate) as Month
+                        FROM Sales_Record 
+                        INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
+                        WHERE CAST(Sales_Record.salesDate AS DATE) <= '" . $to ."'                      
+                        GROUP BY itemID, Month
+                        ORDER BY TotalQuantity DESC;";
+                } else {
+                    $sql = "SELECT Sales_Record.itemID,
+                             Inventory_Record.itemName,
+                             Inventory_Record.itemPrice,
+                             SUM(Sales_Record.qty) as TotalQuantity,
+                             (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
+                             EXTRACT(WEEK FROM Sales_Record.salesDate) as Week
                       FROM Sales_Record 
                       INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
                       WHERE CAST(Sales_Record.salesDate AS DATE) <= '" . $to ."'                      
-                      GROUP BY itemID, Month
+                      GROUP BY itemID, Week
                       ORDER BY TotalQuantity DESC;";
+                }
+                
             } else { // if both are specified
-                $sql = "SELECT Sales_Record.itemID,
+                if ($group_by === "Month") {
+                    $sql = "SELECT Sales_Record.itemID,
                                 Inventory_Record.itemName,
                                 Inventory_Record.itemPrice,
                                 SUM(Sales_Record.qty) as TotalQuantity,
@@ -54,6 +99,19 @@
                         WHERE CAST(Sales_Record.salesDate AS DATE) >= '" . $from . "' AND CAST(Sales_Record.salesDate AS DATE) <= '" . $to . "'                      
                         GROUP BY itemID, Month
                         ORDER BY TotalQuantity DESC;";   
+                } else {
+                    $sql = "SELECT Sales_Record.itemID,
+                                Inventory_Record.itemName,
+                                Inventory_Record.itemPrice,
+                                SUM(Sales_Record.qty) as TotalQuantity,
+                                (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
+                                EXTRACT(WEEK FROM Sales_Record.salesDate) as Week
+                        FROM Sales_Record 
+                        INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
+                        WHERE CAST(Sales_Record.salesDate AS DATE) >= '" . $from . "' AND CAST(Sales_Record.salesDate AS DATE) <= '" . $to . "'                      
+                        GROUP BY itemID, Week
+                        ORDER BY TotalQuantity DESC;";   
+                }
             }
         }         
             if (! $result = mysqli_query($conn, $sql)) {
