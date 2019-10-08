@@ -12,16 +12,15 @@ function get_all_data($conn) {
 
 }
 
-function update_qty($conn, $id, $itemStock, $updateOption) {
-	$query = "SELECT * FROM Inventory_Record WHERE itemID = $id";
+function update_qty($conn, $name, $itemStock, $updateOption) {
+	$query = "SELECT * FROM Inventory_Record WHERE itemName = '$name'";
 	$result = mysqli_query($conn, $query);
-
-	if ($result) {
-		$inQty = mysqli_fetch_assoc($result);
-
+	$inQty = mysqli_fetch_assoc($result);
+	
+	if ($result && $inQty != null) {
 		if ($updateOption == "Add") {
 			$total = $inQty['itemStock'] + $itemStock;
-			$query = "UPDATE Inventory_Record SET itemStock = $total WHERE itemID = $id";
+			$query = "UPDATE Inventory_Record SET itemStock = $total WHERE itemName = '$name'";
 			$result = mysqli_query($conn, $query);
 
 			if ($result) {
@@ -32,7 +31,7 @@ function update_qty($conn, $id, $itemStock, $updateOption) {
 		} else {
 			$remain = $inQty['itemStock'] - $itemStock;
 			if ($remain > 0) {
-				$query = "UPDATE Inventory_Record SET itemStock = $remain WHERE itemID = $id";
+				$query = "UPDATE Inventory_Record SET itemStock = $remain WHERE itemName = '$name'";
 				$result = mysqli_query($conn, $query);
 				
 				if ($result) {
@@ -50,12 +49,13 @@ function update_qty($conn, $id, $itemStock, $updateOption) {
 	}
 }
 
-function update_price($conn, $id, $price) {
-	$query = "SELECT * FROM Inventory_Record WHERE itemID = $id";
+function update_price($conn, $name, $price) {
+	$query = "SELECT * FROM Inventory_Record WHERE itemName = '$name'";
 	$result = mysqli_query($conn, $query);
+	$item = mysqli_fetch_assoc($result);
 
-	if ($result) {
-		$query = "UPDATE Inventory_Record SET itemPrice = $price WHERE itemID = $id";
+	if ($result && $item != null) {
+		$query = "UPDATE Inventory_Record SET itemPrice = $price WHERE itemName = '$name'";
 		$result = mysqli_query($conn, $query);
 
 		if ($result) {
