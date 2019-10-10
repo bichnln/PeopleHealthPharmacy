@@ -19,7 +19,9 @@ function update_qty($conn, $name, $salesDate, $qty) {
 	$result = mysqli_query($conn, $query);
 
 	if ($result) {
-		$itemID = mysqli_fetch_assoc($result)['itemID'];
+		$row = mysqli_fetch_assoc($result);
+		$itemID = $row['itemID'];
+		$itemStock = $row['itemStock'];
 		$query = "SELECT * FROM Sales_Record WHERE itemID = $itemID AND salesDate='$salesDate'";
 		$result = mysqli_query($conn, $query);
 
@@ -28,15 +30,21 @@ function update_qty($conn, $name, $salesDate, $qty) {
 			if ($record != null) {
 				$recordQty = $record['qty'];
 				$rem = $recordQty - $qty;
-				$query = "UPDATE Sales_Record SET qty = $qty WHERE itemID = $itemID AND salesDate = '$salesDate'";
-				$result = mysqli_query($conn, $query);
 
-				if ($result) {
-					$query = "UPDATE Inventory_Record SET itemStock = itemStock + $rem WHERE itemID = $itemID";
+				// Check condition in the Inventory
+				if ($itemStock + $rem >= 0) {
+					$query = "UPDATE Sales_Record SET qty = $qty WHERE itemID = $itemID AND salesDate = '$salesDate'";
 					$result = mysqli_query($conn, $query);
 
 					if ($result) {
-						return True;
+						$query = "UPDATE Inventory_Record SET itemStock = itemStock + $rem WHERE itemID = $itemID";
+						$result = mysqli_query($conn, $query);
+
+						if ($result) {
+							return True;
+						} else {
+							return False;
+						}
 					} else {
 						return False;
 					}
