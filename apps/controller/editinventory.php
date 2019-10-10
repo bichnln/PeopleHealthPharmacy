@@ -3,19 +3,28 @@ require_once ("../model/editinventory.php");
 require("../db_connection.php");
 
 if (isset($_GET["search"])) {
+	$com = False;
 	if ($_GET["search"] == 1) {
 		$data = get_all_data($conn);
 
 		if ($data) {
 			session_start();
 			$_SESSION['data'] = $data;
+			
+			if (isset($_GET["com"])) {
+				$msg = $_GET['com'];
+				header ("location: ../view/editinventory.php?com=$msg");
+				exit();
+			}
 		} else {
 			$_SESSION['data'] = "Cannot reach to the server!";
 		}
 	} else {
 		$_SESSION['data'] = "Uh-oh! Something went wrong!";
 	}
-	header ("location: ../view/editinventory.php");
+	if (!$com) {
+		header ("location: ../view/editinventory.php");
+	}
 } else {
 	// Santitise the input
 	function sanitise_input($data){
@@ -26,8 +35,8 @@ if (isset($_GET["search"])) {
 	}
 
 	// Check if process was triggered by a form submit
-	if(isset($_POST["itemID"])) {
-		$itemID = sanitise_input($_POST["itemID"]);
+	if(isset($_POST["itemName"])) {
+		$itemName = sanitise_input($_POST["itemName"]);
 	} else {
 		// Redirect to form, if the process not triggered by a form submit
 		header("location: ../view/editinventory.php");
@@ -52,12 +61,11 @@ if (isset($_GET["search"])) {
 	// Validate data
 	$errMsg = "";
 
-	if($itemID == "") {
-		$errMsg .= "You must enter the item ID<br/>";
-	} else if (!preg_match("/^([0-9]){1,10}$/", $itemID)) {
-		$errMsg .= "The item ID must contain only number from 0 to 9 with the maximum length of 10<br/>";
+	if($itemName == "") {
+		$errMsg .= "You must enter the item's name<br/>";
+	} else if (!preg_match("/^[A-Za-z ]{1,40}$/", $itemName)) {
+		$errMsg .= "The item name must contain uppercase or lowercase letters and spaces<br/>";
 	}
-
 	if ($itemPrice != -1) {
 		if (!preg_match("/([0-9])+(\.[0-9]{1,2})?/", $itemPrice)) {
 			$errMsg .= "The item price must contain only decimal numbers<br/>";
@@ -75,13 +83,24 @@ if (isset($_GET["search"])) {
 		echo "<span>". $errMsg ."</span>";
 		echo "<a href='../view/editinventory.php'>BACK TO APPLY FORM</a>";
 	} else {
+		$msg = "";
 		if ($itemPrice != -1) {
-			$result = update_price($conn, $itemID, $itemPrice);
+			$result = update_price($conn, $itemName, $itemPrice);
+			if ($result) {
+				$msg .= "0";
+			} else {
+				$msg .= "1";
+			}
 		} 
 		if ($itemStock != "") {
-			$result = update_qty($conn, $itemID, $itemStock, $updateOption);
+			$result = update_qty($conn, $itemName, $itemStock, $updateOption);
+			if ($result) {
+				$msg .= "2";
+			} else {
+				$msg .= "3";
+			}
 		}
-		header ("location: ../view/editinventory.php");
+		header ("location: ../view/editinventory.php?com=$msg");
 	}
 }
 
