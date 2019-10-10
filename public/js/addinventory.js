@@ -11,21 +11,16 @@ function onInputValidate(item, pattern, errorText) {
     }
 }
 function init() {
-    var itemID = document.getElementById('itemID');
     var itemName = document.getElementById('itemName');
     var price = document.getElementById('itemPrice');
     var qty = document.getElementById('itemStock');
     var statetxt = document.getElementById("statetext"); 
     var addInventoryForm = document.getElementById("addInventoryForm"); 
     
-    var idPattern = /^([0-9]){1,10}$/;
     var namePattern = /^[A-Za-z ]{1,40}$/;
     var pricePattern = /^([0-9])+(\.[0-9]{1,2})?$/;
     var qtyPattern = /^[0-9]+$/;
 
-    itemID.oninput = function() {
-        onInputValidate(itemID, idPattern, "ID must not be empty and contains only numbers with 10 digits as max");
-    }
     itemName.oninput = function() {
         onInputValidate(itemName, namePattern,  "Item Name must not be empty and contains only letters and spaces");
     }

@@ -11,7 +11,7 @@ function onInputValidate(item, pattern, errorText) {
     }
 }
 function init() {
-    var itemID = document.getElementById('itemID');
+    var itemName = document.getElementById('itemName');
     var qty = document.getElementById('qty');
     var date = document.getElementById("salesDate");
     var statetxt = document.getElementById("statetxt"); 
@@ -22,8 +22,8 @@ function init() {
     var pricePattern = /^([0-9])+(\.[0-9]{1,2})?$/;
     var qtyPattern = /^[0-9]+$/;
 
-    itemID.oninput = function() {
-        onInputValidate(itemID, idPattern, "ID must not be empty and contains only numbers with 10 digits as max");
+    itemName.oninput = function() {
+        onInputValidate(itemName, namePattern, "Item Name must not be empty and contains only letters and spaces");
     }
     qty.oninput = function() {
         onInputValidate(qty, qtyPattern, "Quantity must not be empty and accepts only positive integers");

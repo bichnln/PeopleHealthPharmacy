@@ -2,23 +2,23 @@
 
 // Retrieved information
 $eID = "1";	// Without login feature
-if (isset($_POST["itemID"])) {
-	$itemID = $_POST["itemID"];
+if (isset($_POST["itemName"])) {
+	$itemName = $_POST["itemName"];
 } else {
 	// Error 0 - information hasn't been passed
-	header("location: ../controller/addsales.php?err=s0");
+	header("location: ../view/addsales.php?err=s0");
 }
 if (isset($_POST["qty"])) {
 	$qty = $_POST["qty"];
 } else {
 	// Error 0 - information hasn't been passed
-	header("location: ../controller/addsales.php?err=s0");
+	header("location: ../view/addsales.php?err=s0");
 }
 if (isset($_POST["salesDate"])) {
 	$salesDate = $_POST["salesDate"];
 } else {
 	// Error 0 - information hasn't been passed
-	header("location: ../controller/addsales.php?err=s0");
+	header("location: ../view/addsales.php?err=s0");
 }
 
 require_once("../db_connection.php");
@@ -35,15 +35,16 @@ $result = mysqli_query($conn, $sql_sales_table);
 // Check if it can create a sales table
 if ($result) {
 	// Check stock quantity in inventory
-	$checkQtyQuery = "SELECT * FROM Inventory_Record WHERE itemID = $itemID";
+	$checkQtyQuery = "SELECT * FROM Inventory_Record WHERE itemName = '$itemName'";
 	$result = mysqli_query($conn, $checkQtyQuery);
+	$inQty = mysqli_fetch_assoc($result);
 	
-	if ($result) {
-		$inQty = mysqli_fetch_assoc($result);
-
+	if ($inQty) {
 		// Check input quantity and current quantity in stock
 		if ($inQty['itemStock'] >= $qty) {
 			$remain = $inQty['itemStock'] - $qty;
+			$itemID = $inQty['itemID'];
+
 			$updateQuery = "UPDATE Inventory_Record SET itemStock = $remain WHERE itemID = $itemID";
 			$result = mysqli_query($conn, $updateQuery);
 
@@ -54,26 +55,26 @@ if ($result) {
 
 				// Check the insertion query
 				if ($result) {
-					header("location: ../controller/addsales.php?suc=s1");
+					header("location: ../view/addsales.php?suc=s1");
 				} else {
 					// Error 4 - Cannot insert into sales table
-					header("location: ../controller/addsales.php?err=s4");
+					header("location: ../view/addsales.php?err=s4");
 				}
 			} else {
 				// Error 3 - Cannot update inventory table
-				header("location: ../controller/addsales.php?err=s3");
+				header("location: ../view/addsales.php?err=s3");
 			}
 		} else {
 			// Message 1 - Not much item in stock
-			header("location: ../controller/addsales.php?msg=s1");
+			header("location: ../view/addsales.php?msg=s1");
 		}
 	} else {
-		// Error 2 - There is no item with the given ID
-		header("location: ../controller/addsales.php?err=s2");
+		// Error 2 - There is no item with the given Name
+		header("location: ../view/addsales.php?err=s2");
 	}
 } else {
 	// Error 1 - Can not create a sales table
-	header("location: ../controller/addsales.php?err=s1");
+	header("location: ../view/addsales.php?err=s1");
 }
 
 ?>
