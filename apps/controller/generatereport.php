@@ -12,14 +12,15 @@
     if (!is_null($_POST['to_date'])) {
         $to = $_POST['to_date'];
     }
-    if (is_null($_POST['group_by']) || ($_POST['group_by'] === "month")) {
-        $group_by = "Month";
-    } else {
-        $group_by = "Week";
-    }
 
-    $sqlResult = getSQLResult($from, $to, $group_by);
-    $_SESSION["sqlResult"] = $sqlResult;
+    $monthly_item_report = getMonthlyItem($from, $to);
+
+    $_SESSION['monthly_category'] = getMonthlyCategory($from, $to);
+    $_SESSION['weekly_category'] = getWeeklyCategory($from, $to);
+    $_SESSION['monthly_item'] = $monthly_item_report;
+    $_SESSION['weekly_item'] = getWeeklyItem($from, $to);
     
     header("location:../view/displayreport.php");
+
+
 ?>

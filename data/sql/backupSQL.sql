@@ -17,6 +17,7 @@ CREATE TABLE Inventory_Record(
 	itemName varchar(40) NOT NULL,
 	itemPrice decimal(5,2) NOT NULL,
 	itemStock int(10),
+	category varchar(30),
 	PRIMARY KEY(itemID)
 );
 
