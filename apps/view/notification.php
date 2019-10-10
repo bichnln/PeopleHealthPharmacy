@@ -6,67 +6,56 @@
 		<title>PHP - Low Stock Notification</title>
 	</head>
 	<body>
+		<?php include_once "header.inc"; ?>
+
 		<?php 
-		include_once "header.inc";
-		require_once ("../db_connection.php");
-		?>
-
-		<!-- display all inventory records -->
-		<?php
-		$query = "SELECT itemName, itemStock
-				FROM Inventory_Record";
-		$result = mysqli_query($conn, $query);
-
-		//identify threshold
+		// Initialize
+		$warningArray = array();
+		$impArray = array();
 		$limit = 100;
+		
+		// Pull data
+		session_start();
+		if (!isset($_SESSION['data'])) {
+			header("location: ../controller/notification.php?search=1");
+		} else {
+			$data = $_SESSION['data'];
+			if (is_array($data)) {
+				// Add array
+				foreach ($data as $item) {
+					$stock = $item[1];
+					// Warning message
+					if($stock <= $limit && $stock >= $limit/2){
+						$msg = "<p class='warningMsg'>Warning! <span>" . $item[0] . "</span> - <span>". $stock ."</span> is lower than stock threshold!</p>";
+						array_push($warningArray, $msg);
+					} else if ($stock < $limit/2) { // Important message
+						$msg = "<p class='impMsg'>Important! <span>" . $item[0] . "</span> - <span>". $stock ."</span> is really low now! Please make an order as soon as possible!</p>";
+						array_push($impArray, $msg);
+					}
+					
+				}
 
-		//initialize empty arrays
-		$items = array();
-		$msgArray = array();
 
-		if(!$result)
-		{
-			echo "<p> There is something wrong with the SQL query. </p>";
-		}
-		else
-        {
-            echo "<table border =\"1\">\n";
-
-            echo "<tr> \n"
-                . "<th scope=\"col\">Item Name</th>\n"
-                . "<th scope=\"col\">Sales Stock</th>\n"
-                . "</tr>";
-
-            while($row = mysqli_fetch_assoc($result))
-            {
-                echo "<tr>\n";
-                echo "<td>", $row["itemName"], "</td>\n";
-                echo "<td>", $row["itemStock"], "</td>\n";
-                echo "</tr>\n";
-                //append empty array
-                $items[] = $row;
-            }
-            echo "</table>";
-        }
-		//print_r($items);
-
-		foreach ($items as $data) {
-			
-			//if item stock is lower than threshold
-			if($data['itemStock'] <= $limit)
-			{
-				//add items into message array
-				$msgArray[] = "Warning! " . $data['itemName'] . " is lower than stock threshold! <br />";
+				// Print message
+				foreach ($impArray as $msg)
+				{
+					echo $msg;
+				}
+				foreach ($warningArray as $msg) {
+					echo $msg;
+				}
+			} else {
+				if ($data == 1) {
+					echo "<p>Uh-oh! There is something wrong with the syetem.</p>";
+				} else if ($data == 2) {
+					echo "<p>It's a nice day! There is no low stock item.</p>";
+				}
 			}
-			
+			unset($_SESSION['data']);
 		}
 
-		for($i = 0; $i < count($msgArray); $i++)
-		{
-			echo $msgArray[$i];
-		}
-            mysqli_free_result($result);
-            mysqli_close($conn);
+
+
 		?>
 	</body>
 </html>
