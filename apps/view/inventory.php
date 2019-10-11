@@ -25,6 +25,10 @@
 						<input type="text" name="itemStock" id="itemStock" maxlength="10" size="10" required="required" pattern="^[0-9]+$"/>
 					</p>
 					<p>
+						<label for="itemCate">Item Category</label>
+						<input type="text" name="itemCate" id="itemCate" maxlength="30" size="30" required="required" pattern="^[A-Za-z0-9]{1,30}$"/>
+					</p>
+					<p>
 					<span class="errortxt" id="statetext"></span>
 					</p>
 					<p>

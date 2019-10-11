@@ -15,6 +15,7 @@
 				<th>Item Name</th>
 				<th>Item Price</td>
 				<th>Quantity in Stock</th>
+				<th>Category</th>
 			</tr>
 			
 			<?php
@@ -36,6 +37,7 @@
 							echo "<td>" . $row[1] . "</td>";
 							echo "<td>" . $row[2] . "</td>";
 							echo "<td>" . $row[3] . "</td>";
+							echo "<td>" . $row[4] . "</td>";
 							echo "</tr>";
 						}
 					} else {
@@ -62,6 +64,10 @@
 						<label for="itemStock">Quantity in Stock</label>
 						<input type="text" name="itemStock" id="itemStock" maxlength="10" size="10" pattern="[0-9]+"/>
 					</p>
+					<p>
+						<label for="itemCate">Item Category</label>
+						<input type="text" name="itemCate" id="itemCate" maxlength="30" size="30" required="required" pattern="^[A-Za-z0-9]{1,30}$"/>
+					</p>
 					<p> Update quanity
 						<select name="updateOption" id="updateOption">
 							<option value="Add">Add</option>
@@ -76,7 +82,7 @@
 						// Return error messages
 						if (isset($_GET['com'])) {
 							$msg = $_GET['com'];
-							$li = array("Successfully updated item price!<br/>", "Failed to udpate item price!<br/>", "Successfully updated item stock!<br/>", "Failed to udpate item stock!<br/>");
+							$li = array("Successfully updated item price!<br/>", "Failed to udpate item price!<br/>", "Successfully updated item stock!<br/>", "Failed to udpate item stock!<br/>", "Successfully updated item category!<br/>", "Failed to udpate item category!<br/>");
 
 							for ($i=0; $i < strlen($msg); $i++) {
 								echo $li[$msg[$i]];

@@ -19,6 +19,12 @@ if (isset($_POST["itemStock"])) {
 	// Error 0 - information hasn't been passed
 	header("location: ../view/inventory.php?err=i0");
 }
+if(isset($_POST["itemCate"])) {
+	$itemCate = $_POST["itemCate"];
+} else {
+	// Redirect to form, if the process not triggered by a form submit
+	header("location: ../view/inventory.php");
+}
 
 require_once("../db_connection.php");
 $sql_sales_table = "CREATE TABLE IF NOT EXISTS Inventory_Record(
@@ -26,6 +32,7 @@ $sql_sales_table = "CREATE TABLE IF NOT EXISTS Inventory_Record(
 					itemName varchar(40) NOT NULL,
 					itemPrice decimal(5,2) NOT NULL,
 					itemStock int(10),
+					category varchar(30),
 					PRIMARY KEY(itemID));";
 
 $result = mysqli_query($conn, $sql_sales_table);
@@ -34,7 +41,7 @@ $result = mysqli_query($conn, $sql_sales_table);
 if ($result) {
 	// Check duplicate data
 	$checkDuplicate = "SELECT * FROM Inventory_Record 
-					   WHERE itemName = '$itemName' AND itemPrice = '$itemPrice'";
+					   WHERE itemName = '$itemName'";
 	$result = mysqli_query($conn, $checkDuplicate);
 
 	if($result) {
@@ -42,6 +49,7 @@ if ($result) {
 
 		if ($item) {
 			// IF an item exists
+			$itemID = $item['itemID'];
 			$total = $item['itemStock'] + $itemStock;
 			$updateQuery = "UPDATE Inventory_Record SET itemStock = $total WHERE itemID = $itemID";
 			$result = mysqli_query($conn, $updateQuery);
@@ -51,11 +59,12 @@ if ($result) {
 				header("location: ../view/inventory.php?suc=i1");
 			} else {
 				// Error 3 - Can not update inventory
-				header("location: ../view/inventory.php?err=i3");
+				// header("location: ../view/inventory.php?err=i3");
+				echo mysql_error($result);
 			}
 		} else {
 			// IF an item doesn't exist
-			$insertQuery = "INSERT INTO Inventory_Record(itemName, itemPrice, itemStock) VALUES ('$itemName', $itemPrice, $itemStock);";
+			$insertQuery = "INSERT INTO Inventory_Record(itemName, itemPrice, itemStock, category) VALUES ('$itemName', $itemPrice, $itemStock, '$itemCate');";
 
 			$result = mysqli_query($conn, $insertQuery);
 			if ($result) {
@@ -64,6 +73,7 @@ if ($result) {
 			} else {
 				// Error 4 - Can not insert item
 				header("location: ../view/inventory.php?err=i4");
+
 			}
 		}
 	} else {
