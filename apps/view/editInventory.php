@@ -95,6 +95,7 @@
 					<input type="button" id="editCancel" value="Cancel" onClick="cancelEdit()"/>
 		</form>
 	</body>
+	<?php include_once "footer.inc"; ?>
 </html>
 		
 	

@@ -129,5 +129,5 @@
     ?>  
     
 </body>
-
+<?php include_once "footer.inc"; ?>
 </html>
