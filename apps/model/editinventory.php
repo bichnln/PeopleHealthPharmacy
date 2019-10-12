@@ -49,19 +49,30 @@ function update_qty($conn, $name, $itemStock, $updateOption) {
 	}
 }
 
-function update_price($conn, $name, $price) {
+function update_single($conn, $name, $col, $tag) {
 	$query = "SELECT * FROM Inventory_Record WHERE itemName = '$name'";
 	$result = mysqli_query($conn, $query);
 	$item = mysqli_fetch_assoc($result);
 
 	if ($result && $item != null) {
-		$query = "UPDATE Inventory_Record SET itemPrice = $price WHERE itemName = '$name'";
-		$result = mysqli_query($conn, $query);
+		if ($tag == "price") {
+			$query = "UPDATE Inventory_Record SET itemPrice = $col WHERE itemName = '$name'";
+			$result = mysqli_query($conn, $query);
 
-		if ($result) {
-			return True;
-		} else {
-			return False;
+			if ($result) {
+				return True;
+			} else {
+				return False;
+			}
+		} else if ($tag == "cate") {
+			$query = "UPDATE Inventory_Record SET category = '$col' WHERE itemName = '$name'";
+			$result = mysqli_query($conn, $query);
+
+			if ($result) {
+				return True;
+			} else {
+				return False;
+			}
 		}
 	} else {
 		return False;

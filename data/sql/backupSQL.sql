@@ -17,6 +17,7 @@ CREATE TABLE Inventory_Record(
 	itemName varchar(40) NOT NULL,
 	itemPrice decimal(5,2) NOT NULL,
 	itemStock int(10),
+	category varchar(30),
 	PRIMARY KEY(itemID)
 );
 
@@ -26,7 +27,8 @@ CREATE TABLE Sales_Record(
 	salesDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	qty int(10),
 	PRIMARY KEY(eID, itemID, salesDate),
-	FOREIGN KEY (itemID) REFERENCES Inventory_Record(itemID)
+	FOREIGN KEY (itemID) REFERENCES Inventory_Record(itemID),
+	FOREIGN KEY (eID) REFERENCES Employee(eID)
 );
 
 CREATE TABLE Supplier(

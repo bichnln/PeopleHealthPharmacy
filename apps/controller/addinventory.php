@@ -16,19 +16,25 @@ if(isset($_POST["itemName"])) {
 	$itemName = sanitise_input($_POST["itemName"]);
 } else {
 	// Redirect to form, if the process not triggered by a form submit
-	header("location: ../view/addsales.php");
+	header("location: ../view/inventory.php");
 }
 if(isset($_POST["itemPrice"])) {
 	$itemPrice = sanitise_input($_POST["itemPrice"]);
 } else {
 	// Redirect to form, if the process not triggered by a form submit
-	header("location: ../view/addsales.php");
+	header("location: ../view/inventory.php");
 }
 if(isset($_POST["itemStock"])) {
 	$itemStock = sanitise_input($_POST["itemStock"]);
 } else {
 	// Redirect to form, if the process not triggered by a form submit
-	header("location: ../view/addsales.php");
+	header("location: ../view/inventory.php");
+}
+if(isset($_POST["itemCate"])) {
+	$itemCate = sanitise_input($_POST["itemCate"]);
+} else {
+	// Redirect to form, if the process not triggered by a form submit
+	header("location: ../view/inventory.php");
 }
 
 // Validate data
@@ -49,6 +55,11 @@ if($itemStock == "") {
 } else if (!preg_match("/^([0-9]){1,10}$/", $itemStock)) {
 	$errMsg .= "The item quanity must contain only positive numbers<br/>";
 }
+if($itemCate == "") {
+	$errMsg .= "You must enter the item's category<br/>";
+} else if (!preg_match("/^([A-Za-z0-9]){1,30}$/", $itemCate)) {
+	$errMsg .= "The item category must contain uppercase or lowercase letters without spaces<br/>";
+}
 
 
 if($errMsg != ""){
@@ -61,6 +72,7 @@ if($errMsg != ""){
 			"<input id='itemName' name='itemName' type='hidden' value='". $itemName ."'/>".
 			"<input id='itemPrice' name='itemPrice' type='hidden' value='". $itemPrice ."'/>".
 			"<input id='itemStock' name='itemStock' type='hidden' value='". $itemStock ."'/>".
+			"<input id='itemCate' name='itemCate' type='hidden' value='". $itemCate ."'/>".
 			"<button id='subBtn' type='submit' name='subBtn'>Add</button>".
 		"</form>".
 		"<script type='text/javascript'>
