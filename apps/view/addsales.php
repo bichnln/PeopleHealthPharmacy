@@ -65,4 +65,5 @@
 			</fieldset>
 		</form>
 	</body>
+	<?php include_once "footer.inc"; ?>
 </html>

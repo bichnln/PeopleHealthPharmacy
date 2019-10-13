@@ -1,0 +1,20 @@
+/* Header Styling */
+
+#logo
+{
+	width: 128px;
+	height: 128px;
+}
+
+/* Footer Styling */
+
+footer
+{
+	clear: both;
+	font-size: .75em;
+}
+
+footer span
+{
+    float: right;
+}
