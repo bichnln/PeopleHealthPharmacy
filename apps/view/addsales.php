@@ -84,6 +84,7 @@
 		<!-- add php to process this form to db -->
 		<form action="../controller/addsales.php" method="post">
 			<fieldset>
+				<legend>Add Sales Record</legend>
 				<p>
 					<label for="itemName">Item Name</label>
 					<input type="text" name="itemName" id="itemName" maxlength="40" size="40" required="required" pattern="^[A-Za-z ]{1,40}$"/>
