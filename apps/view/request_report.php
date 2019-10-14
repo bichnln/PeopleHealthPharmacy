@@ -17,8 +17,15 @@
         <label for="to_date">To: </label>
         <input type="date" id="to_date" name="to_date"/> <br>
 
+        <label>Group by: </label>
+        <label for="month">Month</label>
+        <input type="radio" name="group_by" value="month" id="month"/> 
+        <label for="week">Week</label>
+        <input type="radio" name="group_by" value="week" id="week"/> <br>
+        
         <input type="submit" value="Get Report"/>
     </form>
     
 </body>
+<?php include_once "footer.inc"; ?>
 </html>

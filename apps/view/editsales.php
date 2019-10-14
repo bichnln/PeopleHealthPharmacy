@@ -7,52 +7,49 @@
 		<script src="../../public/js/addsales.js"></script>
 	</head>
 	<body>
-		<?php 
-		include_once "header.inc";
-		require_once ("../db_connection.php");
-		?>
+		<?php include_once "header.inc"; ?>
 
-		<!-- add php to process this form to db later -->
-		<?php
-		$query = "SELECT itemID, salesDate, qty 
-				FROM Sales_Record";
-		$result = mysqli_query($conn, $query);
+		<table border="1">
+			<tr>
+				<th>Item Name</th>
+				<th>Sales Date</td>
+				<th>Quantity</th>
+			</tr>
+			
+			<?php
+				$errMsg = "";
+				session_start();
 
-		if(!$result)
-		{
-			echo "<p> There is something wrong with the SQL query. </p>";
-		}
-		else
-        {
-            echo "<table border =\"1\">\n";
+				if(!isset($_SESSION['data'])) {
+					if (isset($_GET['com'])) {
+						$msg = $_GET['com'];
+						header ("location: ../controller/editsales.php?search=1&com=$msg");
+					} else {
+						header ("location: ../controller/editsales.php?search=1");
+					}
+				} else {
+					$data = $_SESSION['data'];
+					if (is_array($data)) {
+						foreach($data as $row) {
+							echo "<tr>";
+							echo "<td>" . $row[0] . "</td>";
+							echo "<td>" . $row[1] . "</td>";
+							echo "<td>" . $row[2] . "</td>";
+							echo "</tr>";
+						}
+					} else {
+						$errMsg .= $data;
+					}
+					unset($_SESSION['data']);
+				}
+			?>
+		</table>
 
-            echo "<tr> \n"
-                . "<th scope=\"col\">Item ID</th>\n"
-                . "<th scope=\"col\">Sales Date</th>\n"
-                . "<th scope=\"col\">Quantity</th>\n"
-                . "</tr>";
-
-            while($row = mysqli_fetch_assoc($result))
-            {
-                echo "<tr>\n";
-                echo "<td>", $row["itemID"], "</td>\n";
-                echo "<td>", $row["salesDate"], "</td>\n";
-                echo "<td>", $row["qty"], "</td>\n";
-                echo "</tr>\n";
-            }
-            echo "</table>";
-
-            mysqli_free_result($result);
-            mysqli_close($conn);
-        }
-		?>
-
-		<!-- add php to process this form to db later -->
-		<form action="../controller/db_editsales.php" method="post">
+		<form action="../controller/editsales.php" method="post">
 			<fieldset>
 				<p>
-					<label for='itemID'>Item ID</label>
-					<input id='itemID' name='itemID' type='text' required='required' pattern="^[0-9]{1,10}$"/>
+					<label for="itemName">Item Name</label>
+					<input type="text" name="itemName" id="itemName" maxlength="40" size="40" required="required" pattern="^[A-Za-z ]{1,40}$"/>
 				</p>
 				<p>
 					<label for='qty'>Quantity</label>
@@ -60,10 +57,28 @@
 				</p>
 				<p>
 					<label for='salesDate'>Date Sold</label>
-					<input id='salesDate' name='salesDate' type='date' required='required'/>
+					<?php
+						date_default_timezone_set("Australia/Melbourne");
+						echo "<input id='salesDate' name='salesDate' type='datetime' value='". date('d/m/Y h:i:s') ."'/>"
+					?>
+
 				</p>
 				<p>
 				<span class="errortxt" id="statetxt"></span>
+				</p>
+				<p>
+				<?php 
+					// Return error messages
+					if (isset($_GET['com'])) {
+						$msg = $_GET['com'];
+
+						if ($msg == 0) {
+							echo "Successfully updated sales record!<br/>";
+						} else {
+							echo "Failed to udpate sales record!<br/>";
+						}
+					}
+				?>
 				</p>
 				<p>
     			<button id="editbtn" class="btn" type="submit" name="submit" value="editsales">Edit</button>				
@@ -72,4 +87,5 @@
 			</fieldset>
 		</form>
 	</body>
+	<?php include_once "footer.inc"; ?>
 </html>
