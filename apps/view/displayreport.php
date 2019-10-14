@@ -124,6 +124,20 @@
         echo "<p><input type='submit' value='Export'></input></p>";
         echo "</form>";
         
+        echo "<form target='_blank' method='post' action=''>";
+        echo "<label for='item'>Get prediction for: </label>";
+        echo "<input type='text' name='item' /> <br>";
+        echo "<label>Weekly/Monthly</label>";
+
+        echo "<input type='radio' name='type' value='weekly' id='weekly'/>";
+        echo "<label for='weekly'>Weekly</label>";
+
+        echo "<input type='radio' name='type' value='monthly' id='monthly'/>";
+        echo "<label for='monthly'>Monthly</label> <br>";
+
+        echo "<input type='submit' value='predict'/>";
+        
+        echo "</form>";
         
          
     ?>  
