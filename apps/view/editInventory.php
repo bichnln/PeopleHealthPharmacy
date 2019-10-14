@@ -47,7 +47,7 @@
 				}
 			?>
 
-		</table>
+		 v
 		<input type="button" id="btnEdit" value="Edit" onClick="editInventory()"/>
 		<form id="editForm" method="post" action="../controller/editinventory.php" style="visibility:hidden">
 			<fieldset>
