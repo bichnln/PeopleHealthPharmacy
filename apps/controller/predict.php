@@ -21,15 +21,20 @@
         $date = new DateTime($_POST['week']);
         $week = $date->format("W");
     } else {
-        $week =  date('w', date('Y-m-d')) + 1;
+        $date = new DateTime(date('Y-m-d'));
+        $week = $date->format('W') + 1;
     }
 
     if (isset($_POST['month']) && !empty_check($_POST['month'])) {
         $date = new DateTime($_POST['week']);
         $month = $date->format("m");
     } else {
-        $month = date('m', date('Y-m-d')) + 1;
+        $date = new DateTime(date('Y-m-d'));
+        $month = $date->format('m') + 1;
     }
+
+    print_r($month);
+
 
     $_SESSION['itemWeekPrediction'] = itemWeekPrediction($week);
     $_SESSION['itemMonthPrediction'] = itemMonthPrediction($month);

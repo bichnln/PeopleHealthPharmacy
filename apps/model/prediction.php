@@ -37,10 +37,10 @@
                 // because samples 's data are arrays
                 $array = array();
                 array_pop($array);
-                array_push($array, $dataOf[$item['itemName']][$i]['TotalQuantity']);
+                array_push($array, $dataOf[$item['itemName']][$i]['Week']);
 
                 array_push($samples[$item['itemName']], $array);
-                array_push($targets[$item['itemName']], $dataOf[$item['itemName']][$i]['Week']);
+                array_push($targets[$item['itemName']], $dataOf[$item['itemName']][$i]['TotalQuantity']);
             }
         }
    
@@ -108,10 +108,10 @@
                     // because samples 's data are arrays
                     $array = array();
                     array_pop($array);
-                    array_push($array, $dataOf[$item['itemName']][$i]['TotalQuantity']);
+                    array_push($array, $dataOf[$item['itemName']][$i]['Month']);
     
                     array_push($samples[$item['itemName']], $array);
-                    array_push($targets[$item['itemName']], $dataOf[$item['itemName']][$i]['Month']);
+                    array_push($targets[$item['itemName']], $dataOf[$item['itemName']][$i]['TotalQuantity']);
                 }
             }
         }
@@ -179,10 +179,10 @@
                     // because samples 's data are arrays
                     $array = array();
                     array_pop($array);
-                    array_push($array, $dataOf[$cat['category']][$i]['TotalQuantity']);
+                    array_push($array, $dataOf[$cat['category']][$i]['Week']);
     
                     array_push($samples[$cat['category']], $array);
-                    array_push($targets[$cat['category']], $dataOf[$cat['category']][$i]['Week']);
+                    array_push($targets[$cat['category']], $dataOf[$cat['category']][$i]['TotalQuantity']);
                 }
             }
         }
@@ -250,10 +250,10 @@
                     // because samples 's data are arrays
                     $array = array();
                     array_pop($array);
-                    array_push($array, $dataOf[$cat['category']][$i]['TotalQuantity']);
+                    array_push($array, $dataOf[$cat['category']][$i]['Month']);
     
                     array_push($samples[$cat['category']], $array);
-                    array_push($targets[$cat['category']], $dataOf[$cat['category']][$i]['Month']);
+                    array_push($targets[$cat['category']], $dataOf[$cat['category']][$i]['TotalQuantity']);
                 }
             }
         }
