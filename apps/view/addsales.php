@@ -10,9 +10,81 @@
 		<?php 
 		include_once "header.inc";
 		?>
-		<!-- add php to process this form to db later -->
+		<!-- add search feature -->
+		<?php 
+			session_start();
+			if (isset($_SESSION['items'])) {
+				$data = $_SESSION['items'];
+				// echo $data;
+				if(is_array($data)) {
+		?>
+					<table border='1'>
+						<tr>
+							<th>Item Name</th>
+							<th>Item Price</td>
+							<th>Quantity in Stock</th>
+							<th>Category</th>
+						</tr>
+					<?php 
+					foreach($data as $row) {
+						echo "<tr>";
+						echo "<td>" . $row[1] . "</td>";
+						echo "<td>" . $row[2] . "</td>";
+						echo "<td>" . $row[3] . "</td>";
+						echo "<td>" . $row[4] . "</td>";
+						echo "</tr>";
+					}
+
+					?>
+					
+					</table>
+		<?php
+				}
+
+				if (isset($_GET['com'])) {
+					if ($_GET['com'] != 1)
+						echo "Uh-oh! There is something wrong with the system.";
+				}	
+
+			} else {
+				if (isset($_GET['com'])) {
+					if ($_GET['com'] == 2) {
+						echo "Uh-oh! There is no item in the inventory.";
+					}
+				}
+			}
+			unset($_SESSION['items']);
+
+		?>
+		<form action="../controller/search.php" method="post" >
+			<fieldset>
+				<legend>Search items</legend>
+					<p>
+						<label for="itemName">Item Name</label>
+						<input type="text" name="itemName" id="itemName" maxlength="40" size="40" required="required" pattern="^[A-Za-z ]{1,40}$"/>
+					</p>
+					<input id='page' name='page' type='hidden' value='addsales' />
+					<p>
+	    				<button id="searchbtn" class="btn" type="submit" name="submit" value="searchitems">Search</button>				
+					</p>
+					<p>
+						<?php
+							if (isset($_GET['com'])) {
+								if ($_GET['com'] == 0) {
+									echo "<span class='errortxt'>Failed to search the item</span>";
+								}
+							}
+						?>
+
+					</p>
+			</fieldset>
+		</form>
+
+
+		<!-- add php to process this form to db -->
 		<form action="../controller/addsales.php" method="post">
 			<fieldset>
+				<legend>Add Sales Record</legend>
 				<p>
 					<label for="itemName">Item Name</label>
 					<input type="text" name="itemName" id="itemName" maxlength="40" size="40" required="required" pattern="^[A-Za-z ]{1,40}$"/>
@@ -25,7 +97,7 @@
 					<label for='salesDate'>Date Sold</label>
 					<?php
 						date_default_timezone_set("Australia/Melbourne");
-						echo "<input id='salesDate' name='salesDate' type='datetime' readonly value='". date('d/m/Y h:i:s') ."'/>"
+						echo "<input id='salesDate' name='salesDate' type='datetime' readonly value='". date("Y-m-d H:i:s") ."'/>"
 					?>
 
 				</p>
@@ -59,8 +131,8 @@
 				?>
 				</p>
 				<p>
-    			<button id="addbtn" class="btn" type="submit" name="submit" value="addsales">Add</button>				
-				<input type="reset" value="Reset Form"/>
+	    			<button id="addbtn" class="btn" type="submit" name="submit" value="addsales">Add</button>				
+					<input type="reset" value="Reset Form"/>
 				</p>
 			</fieldset>
 		</form>

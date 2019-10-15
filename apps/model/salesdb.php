@@ -50,7 +50,7 @@ if ($result) {
 
 			// Check the update query
 			if ($result) {
-				$insertQuery = "INSERT INTO Sales_Record(eID, itemID, salesDate, qty) VALUES ($eID, $itemID, '$salesDate', $qty)";
+				$insertQuery = "INSERT INTO Sales_Record(eID, itemID, salesDate, qty) VALUES ('$eID', $itemID, '$salesDate', $qty)";
 				$result = mysqli_query($conn, $insertQuery);
 
 				// Check the insertion query
@@ -58,7 +58,8 @@ if ($result) {
 					header("location: ../view/addsales.php?suc=s1");
 				} else {
 					// Error 4 - Cannot insert into sales table
-					header("location: ../view/addsales.php?err=s4");
+					// header("location: ../view/addsales.php?err=s4");
+					echo $salesDate;
 				}
 			} else {
 				// Error 3 - Cannot update inventory table
