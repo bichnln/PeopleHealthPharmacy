@@ -4,12 +4,20 @@
     <meta charset="utf-8"/>
     <meta name="author" content="Le Ngoc Bich Nguyen"/>
     <meta name="description" content="DP2 Project"/>
+    <link rel="stylesheet" href="../../lib/js/chartphp.css">
+        <script src="../../lib/js/jquery.min.js"></script>
+        <script src="../../lib/js/chartphp.js"></script>
 </head>
 
 <body>
     <?php 
+
+        include("../../lib/inc/chartphp_dist.php");
+        include_once("../../config.php");
+
         session_start();
 
+        echo "<h1>Sales Report</h1>";
         /* Display weekly report  group by Item */
 
         if (isset($_SESSION['weekly_item'])) {
@@ -37,6 +45,7 @@
             } else {
                 echo "<p>No weekly report for items!</p>";
             }
+
         }
 
         /* Display monthly report group by item */
@@ -117,6 +126,9 @@
                 echo "<p>No monthly report for categories!</p>";
             }
         }
+
+        echo "<hr>";
+        echo "<h1>Prediction</h1>";
         /* Display weekly prediction  group by Item */
         
         if (isset($_SESSION['itemWeekPrediction'])) {
@@ -138,17 +150,23 @@
                 echo "</table>";
                 echo "</div>";
                 echo "<br>";
+
+                echo $_SESSION['itemWeekGraph'];
+                echo "<hr>";
             } else {
                 echo "<p>No weekly report for items!</p>";
             }
+
+            
         }
+
 
         /* Display monthly report group by item */
         if (isset($_SESSION['itemMonthPrediction'])) {
             $item_month_prediction = $_SESSION['itemMonthPrediction'];
             if (count($item_month_prediction) > 0) {
             
-                echo "<h2>Projected sales of single item for month  basis</h2>";
+                echo "<h2>Projected sales of single item for monthly basis</h2>";
                 echo "<div id='item_week_prediction'>";
                 echo "<table border='1'>";
                 
@@ -163,9 +181,12 @@
                 echo "</table>";
                 echo "</div>";
                 echo "<br>";
+                echo $_SESSION['itemMonthGraph'];
+                echo "<hr>";
             } else {
                 echo "<p>No weekly report for items!</p>";
             }
+           
         }
        
         /* Display monthly report group by categories */
@@ -173,7 +194,7 @@
             $cat_month_prediction = $_SESSION['catMonthPrediction'];
             if (count($cat_month_prediction) > 0) {
             
-                echo "<h2>Projected sales of category for month  basis</h2>";
+                echo "<h2>Projected sales of category for monthly  basis</h2>";
                 echo "<div id='item_week_prediction'>";
                 echo "<table border='1'>";
                 
@@ -188,9 +209,12 @@
                 echo "</table>";
                 echo "</div>";
                 echo "<br>";
+                echo $_SESSION['catMonthGraph'];
+                echo "<hr>";
             } else {
-                echo "<p>No weekly report for items!</p>";
+                echo "<p>No weekly report for category!</p>";
             }
+            
         }
 
          /* Display monthly report group by categories */
@@ -198,7 +222,7 @@
             $cat_week_prediction = $_SESSION['catWeekPrediction'];
             if (count($cat_week_prediction) > 0) {
             
-                echo "<h2>Projected sales of category for week  basis</h2>";
+                echo "<h2>Projected sales of category for weekly basis</h2>";
                 echo "<div id='item_week_prediction'>";
                 echo "<table border='1'>";
                 
@@ -212,21 +236,21 @@
                 }
                 echo "</table>";
                 echo "</div>";
+                
                 echo "<br>";
+                echo "<br>";
+                echo "<div>" . $_SESSION['catWeekGraph']. "</div>";
             } else {
-                echo "<p>No weekly report for items!</p>";
+                echo "<p>No weekly report for category!</p>";
             }
+            
         }
-
 
         echo "<form target='_blank' action='../controller/export.php' method='post'>";
         echo "<input type='hidden' name='form' value='export'/>";
                 
         echo "<p><input type='submit' value='Export'></input></p>";
-        echo "</form>";
-        
-        
-         
+        echo "</form>";    
     ?>  
     
 </body>

@@ -17,8 +17,6 @@
         <label for="to_date">To: </label>
         <input type="date" id="to_date" name="to_date"/> <br>
 
-        
-
         <h2>Prediction: </h2>
         <label for='week' >Week: </label>
         <input type='text' name='week' value= "<?php echo date('d-m-Y'); ?>" /> <br>

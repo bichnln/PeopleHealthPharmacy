@@ -60,6 +60,8 @@
                 $temp['itemName'] = $item['itemName'];
                 $temp['projectedSales'] = $regression->predict($toArray);
                 $temp['week'] = $week;
+                $temp['slope'] = $regression->getCoefficients();
+                $temp['intercept'] = $regression->getIntercept();                    
                 
                 array_push($projectedData, $temp);
                 
@@ -114,32 +116,35 @@
             }
         }
         
-        foreach ($itemList as $item) {         
-            $itemName = $item['itemName'];
-            
-            if (array_key_exists($itemName, $samples)) {
-                
-                if (count($samples[$itemName]) > 1) {       
+        if (count($samples) > 1 && count($targets) > 1) {
+            foreach ($itemList as $item) {         
+                $itemName = $item['itemName'];
+                if (array_key_exists($itemName, $samples)) {
+                    
+                    if (count($samples[$itemName]) > 1) {       
 
-                    $regression = new LeastSquares();
-                    $regression->train($samples[$itemName], $targets[$itemName]);
-        
-                    $toArray = array();
-                    array_push($toArray, $month);
-                    
-                    $temp = array();
-                    $temp['itemName'] = $item['itemName'];
-                    $temp['projectedSales'] = $regression->predict($toArray);
-                    $temp['month'] = $month;
-                    
-                    array_push($projectedData, $temp);
-                    
-                    unset($temp);
-                    unset($regression);
-                } 
+                        $regression = new LeastSquares();
+                        $regression->train($samples[$itemName], $targets[$itemName]);
+                        
+                        $toArray = array();
+                        array_push($toArray, $month);
+                        
+                        $temp = array();
+                        $temp['itemName'] = $item['itemName'];
+                        $temp['projectedSales'] = $regression->predict($toArray);
+                        $temp['month'] = $month;
+                        $temp['slope'] = $regression->getCoefficients();
+                        $temp['intercept'] = $regression->getIntercept();
+                        
+                        array_push($projectedData, $temp);
+                        
+                        unset($temp);
+                        unset($regression);
+                    } 
+                }
             }
         }
-
+        
         return $projectedData;  
     }
     
@@ -152,6 +157,7 @@
         array_pop($categories);
         // get all items from inventory
         $categories = getAllCategories();
+        //print_r($categories);
        
         // put sales in weeks of items into associative array
         foreach ($categories as $cat) {
@@ -161,7 +167,7 @@
             }
         }
         
-        echo "<p>Month category: </p>";
+        echo "<p>Week category: </p>";
        // print_r($dataOf);
         $samples = array();     // all sales data
         $targets = array();     // months/weeks
@@ -202,6 +208,8 @@
                     $temp['category'] = $cat['category'];
                     $temp['projectedSales'] = $regression->predict($toArray);
                     $temp['week'] = $week;
+                    $temp['slope'] = $regression->getCoefficients();
+                    $temp['intercept'] = $regression->getIntercept();
                     
                     array_push($projectedData, $temp);
                     
@@ -210,6 +218,7 @@
                 } 
             }
         }
+
 
         return $projectedData;  
     }
@@ -227,7 +236,7 @@
         // put sales in weeks of items into associative array
         foreach ($categories as $cat) {
             $monthlyRecords = getOneCategoryMonthly($cat['category']);
-            for ($i = 1; $i < count($monthlyRecords); $i++) {
+            for ($i = 1; $i <= count($monthlyRecords); $i++) {
                 $dataOf[$cat['category']][$i] =  $monthlyRecords[$i];
             }
         }
@@ -243,7 +252,7 @@
             $targets[$cat['category']] = array();
     
             if (array_key_exists($cat['category'], $dataOf)) {
-                for ($i = 1 ; $i <= count($dataOf[$cat['category']]); $i++) {
+                for ($i = 1 ; $i < count($dataOf[$cat['category']]); $i++) {
                 
                     // because samples 's data are arrays
                     $array = array();
@@ -273,6 +282,8 @@
                     $temp['category'] = $cat['category'];
                     $temp['projectedSales'] = $regression->predict($toArray);
                     $temp['month'] = $month;
+                    $temp['slope'] = $regression->getCoefficients();
+                    $temp['intercept'] = $regression->getIntercept();
                     
                     array_push($projectedData, $temp);
                     
@@ -284,9 +295,6 @@
 
         return $projectedData;  
     }
-    
-    
-
     
 
 ?>
