@@ -1,6 +1,7 @@
 <?php
 print <<<END
 <nav>
+	<a href="homepage.php">Home</a>
 	<a href="addsales.php">Add Sale</a>
 	<a href="editsales.php">Edit Sale</a>
 	<a href="inventory.php">Add Product</a>

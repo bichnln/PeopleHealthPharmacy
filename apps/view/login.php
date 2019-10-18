@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'header.inc';?>
 	<body>
+		<?php include 'header.inc';?>
 		<form method="post" action="../controller/authentication.php">
 			<h1>Login</h1>
 			<p>
