@@ -124,6 +124,22 @@
         echo "<p><input type='submit' value='Export'></input></p>";
         echo "</form>";
         
+
+        echo "<fieldset>";
+        echo "<legend>Choose prediction: </legend>";
+
+        echo "<form target='_blank' method='post' action='../controller/predict.php'>";
+
+        echo "<label for='week'>Week: </label>";
+        echo "<input type='date' name='week'/> <br>"; 
+
+        echo "<label for='month'>Month: </label>";
+        echo "<input type='date' name='month'/> <br>";
+
+        echo "<input type='submit' value='Predict'/>";
+        
+        echo "</form>";
+        echo "</fieldset>";
         
          
     ?>  
