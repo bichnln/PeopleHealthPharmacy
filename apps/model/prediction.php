@@ -3,8 +3,6 @@
     require_once ("../../vendor/autoload.php");
     use Phpml\Regression\LeastSquares;
 
-    global $conn;
-
     function itemWeekPrediction($week) {
         $dataOf = array();
 
@@ -286,6 +284,10 @@
 
         return $projectedData;  
     }
+    
+    
+
+    
 
 ?>
 

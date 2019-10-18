@@ -1,6 +1,8 @@
 <?php 
     require_once("../db_connection.php");
-   
+    
+    
+    
 
     /*
         Get MONTHLY report of sales, group by ITEM
