@@ -8,10 +8,12 @@
 	</head>
 	<body>
 	<div class="content">
-		<?php include_once 'header.inc';?>
+		<?php 
+			include_once 'header.inc';
+			include_once "authentication.inc";
+		?>
 			<!-- add search feature -->
 			<?php 
-				session_start();
 				if (isset($_SESSION['items'])) {
 					$data = $_SESSION['items'];
 					// echo $data;

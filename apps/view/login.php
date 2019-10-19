@@ -16,7 +16,14 @@
 						<input name="password" id="password" type="password" required maxlength="40" size="30" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" />
 					</p>
 					<p>
-						<span id="error"></span>
+						<?php 
+							if (isset($_GET['auth'])) {
+								echo "<span id='error'>Incorrect username or password!</span>";
+							}
+							if (isset($_GET['fail'])) {
+								echo "<span id='error'>Uh oh! Are you doing something wrong?</span>";	
+							}
+						?>
 					</p>
 					<p>
 						<button type="submit">Login</button>
@@ -24,6 +31,10 @@
 				</fieldset>
 			</form>
 		</div>
+		<script>
+			var url = "login.php";
+			window.history.pushState("", "", url);
+		</script>
 		<?php include_once "footer.inc"; ?>
 	</body>
 </html>
