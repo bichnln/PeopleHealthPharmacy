@@ -13,7 +13,7 @@
 <body>
     <div class="content">
     <?php 
-
+        include_once "header.inc";
         include("../../lib/inc/chartphp_dist.php");
         include_once("../../config.php");
 
@@ -249,6 +249,7 @@
             
         }
 
+<<<<<<< HEAD
         /* Graph generating */
         echo "<h1>Graphs of projected sales</h1>";
         echo "<div class='graph'>";
@@ -259,6 +260,14 @@
         echo "</div>";
         
     ?>  
+=======
+        echo "<form target='_blank' action='../controller/export.php' method='post'>";
+        echo "<input type='hidden' name='form' value='export'/>";
+                
+        echo "<p><input type='submit' value='Export'></input></p>";
+        echo "</form>";    
+    ?> 
+>>>>>>> 7ff56d0d159c1587c5323af9e2a8c803e89e88ef
     </div>
 </body>
 </html>

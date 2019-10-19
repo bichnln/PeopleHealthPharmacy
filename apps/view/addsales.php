@@ -11,7 +11,6 @@
 			<?php 
 			include_once "header.inc";
 			?>
-			<?php include 'menu.inc';?>
 			<!-- add search feature -->
 			<?php 
 				session_start();

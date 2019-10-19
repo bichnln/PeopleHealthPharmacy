@@ -8,7 +8,6 @@
 	<body>
 		<div class="content">
 			<?php include_once "header.inc"; ?>
-			<?php include 'menu.inc';?>
 			<?php 
 			// Initialize
 			$warningArray = array();
