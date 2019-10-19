@@ -5,6 +5,7 @@
     <meta name="author" content="Le Ngoc Bich Nguyen"/>
     <meta name="description" content="DP2 Project"/>
     <link rel="stylesheet" href="../../lib/js/chartphp.css">
+    <link rel="stylesheet" href="../../public/css/graphstyle.css">
         <script src="../../lib/js/jquery.min.js"></script>
         <script src="../../lib/js/chartphp.js"></script>
 </head>
@@ -127,16 +128,22 @@
                 echo "<p>No monthly report for categories!</p>";
             }
         }
+        echo "<form target='_blank' action='../controller/export.php' method='post'>";
+        echo "<input type='hidden' name='form' value='export'/>";
+                
+        echo "<p><input type='submit' value='Export'></input></p>";
+        echo "</form>";    
 
         echo "<hr>";
         echo "<h1>Prediction</h1>";
         /* Display weekly prediction  group by Item */
         
         if (isset($_SESSION['itemWeekPrediction'])) {
+            echo "<h2>Projected sales of single item for week  basis</h2>";
             $item_week_prediction = $_SESSION['itemWeekPrediction'];
             if (count($item_week_prediction) > 0) {
             
-                echo "<h2>Projected sales of single item for week  basis</h2>";
+                
                 echo "<div id='item_week_prediction'>";
                 echo "<table border='1'>";
                 
@@ -151,24 +158,21 @@
                 echo "</table>";
                 echo "</div>";
                 echo "<br>";
-
-                echo $_SESSION['itemWeekGraph'];
-                echo "<hr>";
             } else {
-                echo "<p>No weekly report for items!</p>";
+                echo "<p>No prediction on weekly basis for items!</p>";
             }
 
             
         }
 
 
-        /* Display monthly report group by item */
+        /* Display items' predcition on monthly basis */
         if (isset($_SESSION['itemMonthPrediction'])) {
+            echo "<h2>Projected sales of single item for monthly basis</h2>";
             $item_month_prediction = $_SESSION['itemMonthPrediction'];
             if (count($item_month_prediction) > 0) {
             
-                echo "<h2>Projected sales of single item for monthly basis</h2>";
-                echo "<div id='item_week_prediction'>";
+                echo "<div id='item_month_prediction'>";
                 echo "<table border='1'>";
                 
                 echo "<tr><th>ItemName</th><th>Projected Sales</th><th>Month</th></tr>";
@@ -182,21 +186,20 @@
                 echo "</table>";
                 echo "</div>";
                 echo "<br>";
-                echo $_SESSION['itemMonthGraph'];
-                echo "<hr>";
+
             } else {
-                echo "<p>No weekly report for items!</p>";
+                echo "<p>No prediction on monthly basis for items!</p>";
             }
            
         }
        
-        /* Display monthly report group by categories */
+        /* Display categories' prediction on monthly basis */
         if (isset($_SESSION['catMonthPrediction'])) {
+            echo "<h2>Projected sales of category for monthly  basis</h2>";
             $cat_month_prediction = $_SESSION['catMonthPrediction'];
             if (count($cat_month_prediction) > 0) {
             
-                echo "<h2>Projected sales of category for monthly  basis</h2>";
-                echo "<div id='item_week_prediction'>";
+                echo "<div id='cat_month_prediction'>";
                 echo "<table border='1'>";
                 
                 echo "<tr><th>Category</th><th>Projected Sales</th><th>Month</th></tr>";
@@ -210,21 +213,20 @@
                 echo "</table>";
                 echo "</div>";
                 echo "<br>";
-                echo $_SESSION['catMonthGraph'];
-                echo "<hr>";
             } else {
-                echo "<p>No weekly report for category!</p>";
+                echo "<p>No prediction on monthly basis for category!</p>";
             }
             
         }
 
-         /* Display monthly report group by categories */
+         /* Display item prediction on weekly basis */
          if (isset($_SESSION['catWeekPrediction'])) {
             $cat_week_prediction = $_SESSION['catWeekPrediction'];
+            echo "<h2>Projected sales of category for weekly basis</h2>";
             if (count($cat_week_prediction) > 0) {
             
-                echo "<h2>Projected sales of category for weekly basis</h2>";
-                echo "<div id='item_week_prediction'>";
+               
+                echo "<div id='cat_week_prediction'>";
                 echo "<table border='1'>";
                 
                 echo "<tr><th>Category</th><th>Projected Sales</th><th>Week</th></tr>";
@@ -239,19 +241,23 @@
                 echo "</div>";
                 
                 echo "<br>";
-                echo "<br>";
-                echo "<div>" . $_SESSION['catWeekGraph']. "</div>";
+                echo "<hr>";
+                
             } else {
-                echo "<p>No weekly report for category!</p>";
+                echo "<p>No prediction on weekly basis for category!</p>";
             }
             
         }
 
-        echo "<form target='_blank' action='../controller/export.php' method='post'>";
-        echo "<input type='hidden' name='form' value='export'/>";
-                
-        echo "<p><input type='submit' value='Export'></input></p>";
-        echo "</form>";    
+        /* Graph generating */
+        echo "<h1>Graphs of projected sales</h1>";
+        echo "<div class='graph'>";
+        echo  $_SESSION['itemWeekGraph'];
+        echo  $_SESSION['itemMonthGraph'];
+        echo  $_SESSION['catWeekGraph'];
+        echo  $_SESSION['catMonthGraph'];
+        echo "</div>";
+        
     ?>  
     </div>
 </body>

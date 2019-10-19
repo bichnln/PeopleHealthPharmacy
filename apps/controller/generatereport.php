@@ -82,14 +82,14 @@
                 array_push($sales_array, $sales_data[$itemData['itemName']]);
             }   
 
-            $p = new chartphp();
-            $p->data = $sales_array;
-            $p->chart_type = "line";
-            $p->title = "Projected Sales on weekly basis of Items";
-            $p->xlabel = "Week";
-            $p->ylabel = "Sales";
-            $p->series_label = $series;
-            $out = $p->render('c1');
+            $i = new chartphp();
+            $i->data = $sales_array;
+            $i->chart_type = "line";
+            $i->title = "Projected Sales on weekly basis of Items";
+            $i->xlabel = "Week";
+            $i->ylabel = "Sales";
+            $i->series_label = $series;
+            $out = $i->render('c1');
 
             return $out;
         }   
@@ -153,17 +153,15 @@
             array_push($sales_array, $sales_data[$catData['category']]);
         }   
 
-        $p = new chartphp();
-        $p->data = $sales_array;
-        $p->chart_type = "line";
-        $p->title = "Projected Sales on weekly basis of Categories";
-        $p->xlabel = "Week";
-        $p->ylabel = "Sales";
-        $p->series_label = $series;
-        $out = $p->render('c1');
-
+        $k = new chartphp();
+        $k->data = $sales_array;
+        $k->chart_type = "line";
+        $k->title = "Projected Sales on weekly basis of Categories";
+        $k->xlabel = "Wek";
+        $k->ylabel = "Sales";
+        $k->series_label = $series;
+        $out = $k->render("c1");
         return $out;
-        print_r($out);
     }
     
     function catMonthPredictionGraphData($time) {
@@ -199,6 +197,7 @@
         $p->xlabel = "Month";
         $p->ylabel = "Sales";
         $p->series_label = $series;
+
         $out = $p->render('c1');
         return $out;
     }

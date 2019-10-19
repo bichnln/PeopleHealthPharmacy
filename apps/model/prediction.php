@@ -236,10 +236,12 @@
         // put sales in weeks of items into associative array
         foreach ($categories as $cat) {
             $monthlyRecords = getOneCategoryMonthly($cat['category']);
-            for ($i = 1; $i <= count($monthlyRecords); $i++) {
+            for ($i = 0; $i < count($monthlyRecords); $i++) {
                 $dataOf[$cat['category']][$i] =  $monthlyRecords[$i];
             }
         }
+
+        print_r($categories);
         
         echo "<p>Month category: </p>";
        // print_r($dataOf);

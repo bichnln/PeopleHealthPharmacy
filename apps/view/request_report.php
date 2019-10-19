@@ -17,7 +17,7 @@
 		<form id="chooseDate" action="../controller/generatereport.php" method="post">
             <fieldset>
                 <legend>Generate Sales Report</legend>
-                 <p>Select date to get sales report within selected date range.</p>
+                <p>Select date to get sales report within selected date range.</p>
                 <p>Select nothing to get report of all sales data existing in the database.</p>
     			
                 <label for="from_date">From: </label>
