@@ -38,7 +38,7 @@ if($auth_result) {
 	// IF the authenticaton is successful, let the user go to the homepage
 	// and start_session for eID
 	session_start();
-	$_SESSION['user_id'] = $auth_result;
+	$_SESSION['user'] = $auth_result;
 	header("location: ../view/homepage.php");
 	exit();
 } else {
