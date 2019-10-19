@@ -294,4 +294,168 @@
         return $fetchedArray;
     }
 
+    function getOneItemWeekly($itemName) {
+        global $conn;
+        $fetchedArray = array(array());
+        array_pop($fetchedArray);
+        $sql = "SELECT Sales_Record.itemID,
+                        Inventory_Record.itemName,
+                        Inventory_Record.itemPrice,
+                        SUM(Sales_Record.qty) as TotalQuantity,
+                        (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
+                        EXTRACT(WEEK FROM Sales_Record.salesDate) as Week
+                FROM Sales_Record 
+                INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
+                WHERE Inventory_Record.itemName = '" . $itemName . "'                 
+                GROUP BY Week
+                ORDER BY TotalQuantity DESC;";
+
+        if ($result = mysqli_query($conn, $sql)) {
+            $fields = array();
+            for ($i = 0; $i < $result->field_count; $i++) {
+                $fieldname = mysqli_fetch_field($result)->name;
+                array_push($fields, $fieldname);
+            }
+            array_push($fetchedArray, $fields);
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($fetchedArray, $row);
+            }
+        } else {
+            echo "<p>Error: " .  mysqli_error($conn). "</p>";
+        }
+        return $fetchedArray;
+        
+    }
+
+    function getOneItemMonthly($itemName) {
+        global $conn;
+        $fetchedArray = array(array());
+        array_pop($fetchedArray);
+        $sql = "SELECT Sales_Record.itemID,
+                        Inventory_Record.itemName,
+                        Inventory_Record.itemPrice,
+                        SUM(Sales_Record.qty) as TotalQuantity,
+                        (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
+                        EXTRACT(MONTH FROM Sales_Record.salesDate) as Month
+                FROM Sales_Record 
+                INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
+                WHERE Inventory_Record.itemName = '" . $itemName . "'                 
+                GROUP BY Month
+                ORDER BY TotalQuantity DESC;";
+
+        if ($result = mysqli_query($conn, $sql)) {
+            $fields = array();
+            for ($i = 0; $i < $result->field_count; $i++) {
+                $fieldname = mysqli_fetch_field($result)->name;
+                array_push($fields, $fieldname);
+            }
+            array_push($fetchedArray, $fields);
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($fetchedArray, $row);
+            }
+        } else {
+            echo "<p>Error: " .  mysqli_error($conn). "</p>";
+        }
+        return $fetchedArray;
+    }
+
+    function getOneCategoryMonthly($category) {
+        global $conn;
+        $fetchedArray = array(array());
+        array_pop($fetchedArray);
+        $sql = "SELECT Inventory_Record.category as Category,
+                        SUM(Sales_Record.qty) as TotalQuantity,
+                        (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
+                        EXTRACT(MONTH FROM Sales_Record.salesDate) as Month
+                FROM Sales_Record 
+                INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
+                WHERE Inventory_Record.category = '" . $category . "'
+                GROUP BY Category, Month
+                ORDER BY TotalQuantity DESC;";
+
+        if ($result = mysqli_query($conn, $sql)) {
+            $fields = array();
+            for ($i = 0; $i < $result->field_count; $i++) {
+                $fieldname = mysqli_fetch_field($result)->name;
+                array_push($fields, $fieldname);
+            }
+            array_push($fetchedArray, $fields);
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($fetchedArray, $row);
+            }
+        } else {
+            echo "<p>Error: " .  mysqli_error($conn). "</p>";
+        }
+        return $fetchedArray;
+    }
+
+    function getOneCategoryWeekly($category) {
+        global $conn;
+        $fetchedArray = array(array());
+        array_pop($fetchedArray);
+        $sql = "SELECT Inventory_Record.category as Category,
+                        SUM(Sales_Record.qty) as TotalQuantity,
+                        (Inventory_Record.itemPrice * SUM(Sales_Record.qty)) as TotalPrice,
+                        EXTRACT(WEEK FROM Sales_Record.salesDate) as Week
+                FROM Sales_Record 
+                INNER JOIN Inventory_Record ON Inventory_Record.itemID = Sales_Record.itemID 
+                WHERE Inventory_Record.category = '" . $category . "'
+                GROUP BY Category, Week
+                ORDER BY TotalQuantity DESC;";
+
+        if ($result = mysqli_query($conn, $sql)) {
+            $fields = array();
+            for ($i = 0; $i < $result->field_count; $i++) {
+                $fieldname = mysqli_fetch_field($result)->name;
+                array_push($fields, $fieldname);
+            }
+            array_push($fetchedArray, $fields);
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($fetchedArray, $row);
+            }
+        } else {
+            echo "<p>Error: " .  mysqli_error($conn). "</p>";
+        }
+        return $fetchedArray;
+    }
+
+
+    function getAllItems() {
+        global $conn;
+        $fetchedArray = array();
+        array_pop($fetchedArray);
+        $sql = "SELECT itemName FROM Inventory_Record;";
+
+        if ($result = mysqli_query($conn, $sql)) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($fetchedArray, $row);
+            }
+        } else {
+            echo "<p>Error: " .  mysqli_error($conn). "</p>";
+        }
+        return $fetchedArray;
+    }
+    
+    function getAllCategories() {
+        global $conn;
+        $fetchedArray = array();
+        array_pop($fetchedArray);
+
+        $sql = "SELECT category FROM Inventory_Record;";
+
+        if ($result = mysqli_query($conn, $sql)) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($fetchedArray, $row);
+            }
+        } else {
+            echo "<p>Error: " . mysqli_erro($conn) . "</p>";
+        }
+
+        return $fetchedArray;
+    }
+
+    
+
+
+
 ?>

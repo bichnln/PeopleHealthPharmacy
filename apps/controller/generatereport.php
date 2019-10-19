@@ -13,11 +13,9 @@
         $to = $_POST['to_date'];
     }
 
-    $monthly_item_report = getMonthlyItem($from, $to);
-
     $_SESSION['monthly_category'] = getMonthlyCategory($from, $to);
     $_SESSION['weekly_category'] = getWeeklyCategory($from, $to);
-    $_SESSION['monthly_item'] = $monthly_item_report;
+    $_SESSION['monthly_item'] = getMonthlyItem($from, $to);
     $_SESSION['weekly_item'] = getWeeklyItem($from, $to);
     
     header("location:../view/displayreport.php");

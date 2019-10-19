@@ -8,43 +8,46 @@
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 	</head>
 	<body>
-	<?php include_once 'header.inc';?>
-		<h1>Display an Inventory Record</h1>
-		<table border="1">
-			<tr>
-				<th>Item Name</th>
-				<th>Item Price</td>
-				<th>Quantity in Stock</th>
-				<th>Category</th>
-			</tr>
-			
-			<?php
-				$errMsg = "";
-				session_start();
+	<div class="content">
+		<?php include_once 'header.inc';?>
+		<?php include 'menu.inc';?>
+			<fieldset>
+			<table>
+				<tr>
+					<th>Item Name</th>
+					<th>Item Price</td>
+					<th>Quantity in Stock</th>
+					<th>Category</th>
+				</tr>
+				
+				<?php
+					$errMsg = "";
+					session_start();
 
-				if(!isset($_SESSION['data'])) {
-					if (isset($_GET['com'])) {
-						$msg = $_GET['com'];
-						header ("location: ../controller/editinventory.php?search=1&com=$msg");
-					} else {
-						header ("location: ../controller/editinventory.php?search=1");
-					}
-				} else {
-					$data = $_SESSION['data'];
-					if (is_array($data)) {
-						foreach($data as $row) {
-							echo "<tr>";
-							echo "<td>" . $row[1] . "</td>";
-							echo "<td>" . $row[2] . "</td>";
-							echo "<td>" . $row[3] . "</td>";
-							echo "<td>" . $row[4] . "</td>";
-							echo "</tr>";
+					if(!isset($_SESSION['data'])) {
+						if (isset($_GET['com'])) {
+							$msg = $_GET['com'];
+							header ("location: ../controller/editinventory.php?search=1&com=$msg");
+						} else {
+							header ("location: ../controller/editinventory.php?search=1");
 						}
 					} else {
-						$errMsg .= $data;
+						$data = $_SESSION['data'];
+						if (is_array($data)) {
+							foreach($data as $row) {
+								echo "<tr>";
+								echo "<td>" . $row[1] . "</td>";
+								echo "<td>" . $row[2] . "</td>";
+								echo "<td>" . $row[3] . "</td>";
+								echo "<td>" . $row[4] . "</td>";
+								echo "</tr>";
+							}
+						} else {
+							$errMsg .= $data;
+						}
+						unset($_SESSION['data']);
 					}
 					unset($_SESSION['data']);
-				}
 			?>
 		<input type="button" id="btnEdit" value="Edit" onClick="editInventory()"/>
 		<form id="editForm" method="post" action="../controller/editinventory.php" style="visibility:hidden">
@@ -82,18 +85,19 @@
 							$msg = $_GET['com'];
 							$li = array("Successfully updated item price!<br/>", "Failed to udpate item price!<br/>", "Successfully updated item stock!<br/>", "Failed to udpate item stock!<br/>", "Successfully updated item category!<br/>", "Failed to udpate item category!<br/>");
 
-							for ($i=0; $i < strlen($msg); $i++) {
-								echo $li[$msg[$i]];
+								for ($i=0; $i < strlen($msg); $i++) {
+									echo $li[$msg[$i]];
+								}
 							}
-						}
-					?>
-					</p>
-					<input type="submit" value="Submit"/>
-					<input type="reset" value="Reset"/>
-					<input type="button" id="editCancel" value="Cancel" onClick="cancelEdit()"/>
-		</form>
+						?>
+						</p>
+						<input type="submit" value="Submit"/>
+						<input type="reset" value="Reset"/>
+					</fieldset>
+			</form>
+			<?php include_once "footer.inc"; ?>
+		</div>
 	</body>
-	<?php include_once "footer.inc"; ?>
 </html>
 		
 	

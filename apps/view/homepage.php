@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<body>
-		<?php include 'header.inc';?>
+		<div class="content">
+			<?php include 'header.inc';?>
+			<?php include_once "footer.inc"; ?>
+		</div>
 	</body>
 </html>
