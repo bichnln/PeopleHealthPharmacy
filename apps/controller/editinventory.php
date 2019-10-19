@@ -5,7 +5,7 @@ require("../db_connection.php");
 if (isset($_GET["search"])) {
 	$com = False;
 	if ($_GET["search"] == 1) {
-		$data = get_all_data($conn);
+		$data = get_all_data($conn, "");
 
 		if ($data) {
 			session_start();

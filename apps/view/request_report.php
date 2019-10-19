@@ -8,26 +8,34 @@
 </head>
 
 <body>
-    <p>Select date to get sales report within selected date range.</p>
-    <p>Select nothing to get report of all sales data existing in the database</p>
-    
-    <form id="chooseDate" action="../controller/generatereport.php" method="post">
-        <label for="from_date">From: </label>
-        <input type="date" id="from_date" name="from_date"/> <br>
-        <label for="to_date">To: </label>
-        <input type="date" id="to_date" name="to_date"/> <br>
+	<div class="content">
+		<?php include_once "header.inc"; ?>
+		<?php include 'menu.inc';?>
+		
 
-        <h2>Prediction: </h2>
-        <label for='week' >Week: </label>
-        <input type='text' name='week' value= "<?php echo date('d-m-Y'); ?>" /> <br>
+		
+		<form id="chooseDate" action="../controller/generatereport.php" method="post">
+            <fieldset>
+                <legend>Generate Sales Report</legend>
+                 <p>Select date to get sales report within selected date range.</p>
+                <p>Select nothing to get report of all sales data existing in the database.</p>
+    			
+                <label for="from_date">From: </label>
+    			<input type="date" id="from_date" name="from_date"/> <br>
+    			<label for="to_date">To: </label>
+    			<input type="date" id="to_date" name="to_date"/> <br>
 
-        <label for='month'>Month: </label>
-        <input type='text' name='month' value= "<?php echo date('d-m-Y'); ?>" /> <br>
-        
-        <br>
-        <input type="submit" value="Get Report"/>
-    </form>
-    
+                <h2>Prediction: </h2>
+                <label for='week' >Week: </label>
+                <input type='text' name='week' value= "<?php echo date('d-m-Y'); ?>" /> <br>
+
+                <label for='month'>Month: </label>
+                <input type='text' name='month' value= "<?php echo date('d-m-Y'); ?>" /> <br>
+                
+                <br>
+                <input type="submit" value="Get Report"/>
+            </fieldset>
+        </form>
+    </div>
 </body>
-<?php include_once "footer.inc"; ?>
 </html>

@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <div class="content">
     <?php 
 
         include("../../lib/inc/chartphp_dist.php");
@@ -252,7 +253,6 @@
         echo "<p><input type='submit' value='Export'></input></p>";
         echo "</form>";    
     ?>  
-    
+    </div>
 </body>
-<?php include_once "footer.inc"; ?>
 </html>

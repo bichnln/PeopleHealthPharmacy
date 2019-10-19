@@ -1,7 +1,12 @@
 <?php  
 
-function get_all_data($conn) {
-	$query = "SELECT * FROM Inventory_Record";
+function get_all_data($conn, $itemName) {
+	if ($itemName == "") {
+		$query = "SELECT * FROM Inventory_Record";
+	} else {
+		$query = "SELECT * FROM Inventory_Record WHERE itemName = '$itemName'";
+	}
+	
 	$result = mysqli_query($conn, $query);
 	if ($result) {
 		$data = mysqli_fetch_all($result);

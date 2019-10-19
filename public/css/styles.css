@@ -1,9 +1,111 @@
+* {
+	font-family: arial, calabri;
+}
+
+body {
+	background-color: #abcdef;
+}
+
+.content {
+	margin-left: 150px;
+	margin-right: 150px;
+	background-color: white;
+}
+
+fieldset {
+	border-radius: 8px;
+	margin: 16px;
+}
+
+fieldset legend {
+	font-size: 24px;
+}
+
+label {
+	display: block;
+	padding: 4px;
+}
+
+fieldset input[type="submit"], fieldset input[type="reset"], fieldset button {
+	padding: 8px;
+	color: white;
+	background-color: #237fff;
+	font-size: 16px;
+	border: none;
+	border-radius: 8px;
+	float: right;
+	margin: 4px;
+}
+
+fieldset input[type="submit"]:hover, fieldset input[type="reset"]:hover, fieldset button:hover {
+	background-color: #0067f6;
+}
+
+table, th, td {
+	border: 1px solid black;
+	padding: 4px;
+}
+
+table {
+	border-collapse: collapse;
+	padding: 16px;
+}
+
+th, td {
+	
+}
+
+/* Menu Styling */
+
+.dropbtn {
+	background-color: #f3f3f2;
+	color: black;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropcontent {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 120px;
+	z-index: 1;
+}
+
+.dropcontent a {
+	color: grey;
+	padding: 8px;
+	text-decoration: none;
+	display: block;
+}
+
+nav {
+	background-color: #f3f3f2;
+}
+
+.dropcontent a:hover {background-color: #eeeeee;}
+
+.dropdown:hover .dropcontent {display: block;}
+
+.dropbtn:hover {background-color: #e7e7e4;}
+
 /* Header Styling */
 
 #logo
 {
-	width: 128px;
-	height: 128px;
+	width: 64px;
+	height: 64px;
+	display: inline-block;
+}
+
+h1 {
+	display: inline-block;
 }
 
 /* Footer Styling */

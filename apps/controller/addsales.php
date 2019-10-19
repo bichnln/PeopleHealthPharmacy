@@ -26,7 +26,6 @@ if(isset($_POST["qty"])) {
 }
 if(isset($_POST["salesDate"])) {
 	$salesDate = sanitise_input($_POST["salesDate"]);
-	$salesDate = date('Y-m-d H:i:s', strtotime($salesDate));
 } else {
 	// Redirect to form, if the process not triggered by a form submit
 	header("location: ../view/addsales.php");
