@@ -12,7 +12,7 @@
 <body>
     <div class="content">
     <?php 
-
+        include_once "header.inc";
         include("../../lib/inc/chartphp_dist.php");
         include_once("../../config.php");
 
@@ -252,7 +252,7 @@
                 
         echo "<p><input type='submit' value='Export'></input></p>";
         echo "</form>";    
-    ?>  
+    ?> 
     </div>
 </body>
 </html>

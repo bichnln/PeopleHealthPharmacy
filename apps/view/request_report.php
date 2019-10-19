@@ -10,9 +10,6 @@
 <body>
 	<div class="content">
 		<?php include_once "header.inc"; ?>
-		<?php include 'menu.inc';?>
-		
-
 		
 		<form id="chooseDate" action="../controller/generatereport.php" method="post">
             <fieldset>
@@ -36,6 +33,7 @@
                 <input type="submit" value="Get Report"/>
             </fieldset>
         </form>
+        <?php include_once "footer.inc"; ?>
     </div>
 </body>
 </html>
