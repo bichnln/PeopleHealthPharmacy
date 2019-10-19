@@ -36,6 +36,9 @@ if (!preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])
 $auth_result = check_user($conn, $user_id, $password);
 if($auth_result) {
 	// IF the authenticaton is successful, let the user go to the homepage
+	// and start_session for eID
+	session_start();
+	$_SESSION['user_id'] = $auth_result;
 	header("location: ../view/homepage.php");
 	exit();
 } else {

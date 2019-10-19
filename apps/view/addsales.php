@@ -9,11 +9,11 @@
 	<body>
 	<div class="content">
 			<?php 
+			include_once "authentication.inc";
 			include_once "header.inc";
 			?>
 			<!-- add search feature -->
 			<?php 
-				session_start();
 				if (isset($_SESSION['items'])) {
 					$data = $_SESSION['items'];
 					// echo $data;
@@ -137,7 +137,14 @@
 					</p>
 				</fieldset>
 			</form>
-			<?php include_once "footer.inc"; ?>
+			<?php 
+				include_once "footer.inc"; 
+			?>
+
 		</div>
+		<script>
+			var url = "addsales.php";
+			window.history.pushState("", "", url);
+		</script>
 	</body>
 </html>

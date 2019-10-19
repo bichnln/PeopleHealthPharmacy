@@ -1,15 +1,14 @@
 <?php
 
 function check_user($conn, $user_id, $pwd) {
-	$query = "SELECT eName FROM Employee WHERE eID = '$user_id' AND ePassword = '$pwd'";
+	$query = "SELECT eID FROM Employee WHERE eID = '$user_id' AND ePassword = '$pwd'";
 	$result = mysqli_query($conn, $query);
 
 	if ($result) {
-		$row = mysqli_fetch_all($result);
-		echo $pwd;
+		$row = mysqli_fetch_assoc($result);
 
 		if ($row != null) {
-			return True;
+			return $row;
 		} else {
 			return False;
 		}

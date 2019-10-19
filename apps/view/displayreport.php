@@ -13,11 +13,10 @@
 <body>
     <div class="content">
     <?php 
+        include_once "authentication.inc";
         include_once "header.inc";
         include("../../lib/inc/chartphp_dist.php");
         include_once("../../config.php");
-
-        session_start();
 
         echo "<h1>Sales Report</h1>";
         /* Display weekly report  group by Item */

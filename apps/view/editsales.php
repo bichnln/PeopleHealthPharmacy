@@ -8,7 +8,10 @@
 	</head>
 	<body>
 		<div class="content">
-			<?php include_once "header.inc"; ?>
+			<?php 
+				include_once "authentication.inc";
+				include_once "header.inc";
+			 ?>
 			<fieldset>
 			<table>
 				<tr>
@@ -19,7 +22,6 @@
 				
 				<?php
 					$errMsg = "";
-					session_start();
 
 					if(!isset($_SESSION['data'])) {
 						if (isset($_GET['com'])) {

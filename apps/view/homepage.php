@@ -2,7 +2,10 @@
 <html lang="en">
 	<body>
 		<div class="content">
-			<?php include 'header.inc';?>
+			<?php 
+				include_once "authentication.inc";
+				include 'header.inc';
+			?>
 			<?php include_once "footer.inc"; ?>
 		</div>
 	</body>
