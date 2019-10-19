@@ -10,8 +10,8 @@
 	<body>
 	<div class="content">
 		<?php 
-			include_once 'header.inc';
 			include_once "authentication.inc";
+			include_once 'header.inc';
 		?>
 			<fieldset>
 			<table>

@@ -9,7 +9,10 @@
 
 <body>
 	<div class="content">
-		<?php include_once "header.inc"; ?>
+		<?php
+            include_once "authentication.inc"; 
+            include_once "header.inc"; 
+        ?>
 		
 		<form id="chooseDate" action="../controller/generatereport.php" method="post">
             <fieldset>

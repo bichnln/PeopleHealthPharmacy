@@ -7,7 +7,11 @@
 	</head>
 	<body>
 		<div class="content">
-			<?php include_once "header.inc"; ?>
+
+			<?php 
+				include_once "authentication.inc";
+				include_once "header.inc"; 
+			?>
 			<?php 
 			// Initialize
 			$warningArray = array();
@@ -15,7 +19,6 @@
 			$limit = 100;
 			
 			// Pull data
-			session_start();
 			if (!isset($_SESSION['data'])) {
 				header("location: ../controller/notification.php?search=1");
 			} else {
