@@ -1,6 +1,8 @@
 <?php 
     require_once("../db_connection.php");
-   
+    
+    
+    
 
     /*
         Get MONTHLY report of sales, group by ITEM
@@ -441,7 +443,7 @@
         $fetchedArray = array();
         array_pop($fetchedArray);
 
-        $sql = "SELECT category FROM Inventory_Record;";
+        $sql = "SELECT category FROM Inventory_Record GROUP BY category;";
 
         if ($result = mysqli_query($conn, $sql)) {
             while ($row = mysqli_fetch_assoc($result)) {
@@ -453,6 +455,8 @@
 
         return $fetchedArray;
     }
+
+    
 
     
 

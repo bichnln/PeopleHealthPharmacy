@@ -25,7 +25,7 @@
         $week = $date->format('W') + 1;
     }
 
-    if (isset($_POST['month']) && !empty_check($_POST['month'])) {
+    if (isset($_POST['montah']) && !empty_check($_POST['month'])) {
         $date = new DateTime($_POST['week']);
         $month = $date->format("m");
     } else {
