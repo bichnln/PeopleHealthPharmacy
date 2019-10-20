@@ -1,4 +1,5 @@
 <?php
+	echo "</div>";
 	echo "<footer>";
     echo "<hr />";
     echo "<p>&copy;People Health Pharmacy</a>";

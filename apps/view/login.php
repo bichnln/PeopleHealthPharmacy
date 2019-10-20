@@ -30,11 +30,11 @@
 					</p>
 				</fieldset>
 			</form>
-		</div>
 		<script>
 			var url = "login.php";
 			window.history.pushState("", "", url);
 		</script>
 		<?php include_once "footer.inc"; ?>
+		</div>
 	</body>
 </html>

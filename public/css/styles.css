@@ -3,13 +3,15 @@
 }
 
 body {
-	background: #abcdef;
+	background: #71D662;
 }
 
 .content {
 	margin-left: 150px;
 	margin-right: 150px;
 	background-color: white;
+	min-height: 100vh;
+	position: relative;
 }
 
 fieldset {
@@ -48,11 +50,10 @@ table, th, td {
 
 table {
 	border-collapse: collapse;
-	padding: 16px;
 }
 
 th, td {
-	
+	padding-right: 32px;
 }
 
 /* Menu Styling */
@@ -110,10 +111,20 @@ h1 {
 
 /* Footer Styling */
 
+#content-wrap {
+	padding-bottom: 2.5rem;
+}
+
 footer
 {
 	clear: both;
 	font-size: .75em;
+	position: absolute;
+	bottom: 0;
+	height: 2.5rem;
+	right: 10px;
+	left: 10px;
+	
 }
 
 footer span
